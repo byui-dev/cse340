@@ -4,3 +4,82 @@
 *:after {
   box-sizing: border-box;
 }
+
+/*Add backgtround image to the body*/
+body {
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  border: 8px solid #3498db;
+}
+
+.main-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  padding: 15px;
+  max-width: 250px;
+  z-index: 2;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.text-overlay p {
+  margin: 5px 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.text-overlay img {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+/* Responsive adjustmemts */
+@media (max-width: 600px) {
+  .page-container {
+    margin: 8px;
+    padding: 12px;
+    border-width: 4px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Make navigation horizontal on desktop */
+nav ul {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+}
