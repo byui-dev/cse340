@@ -7,7 +7,7 @@
 
 /*Add backgtround image to the body*/
 body {
-  background-image: url('../images/site/checkerboard.jpg');
+  background-image: url('../images/site/small_check.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -15,8 +15,9 @@ body {
 }
 
 .page-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
+  background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   padding: 24px;
