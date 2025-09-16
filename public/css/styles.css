@@ -90,8 +90,8 @@ body {
 }
 
 .image-item img {
-  width: 100%;
-  height: auto;
+  width: 10px;
+  height: 10px;
   border-radius: 8px;
 }
 
