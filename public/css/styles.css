@@ -76,6 +76,11 @@ nav ul li a {
   display: block;
 }
 
+nav ul li a:hover {
+  color: #3498db;
+  border-bottom: 2px solid #3498db;
+}
+
 .main-wrapper {
   position: relative;
   display: flex;
@@ -177,6 +182,43 @@ nav ul {
   justify-content: center;
 }
 
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 32px;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+table {
+  width: 90%;
+  margin: 32px auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #222;
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background: #f6f6f6;
+}
+
+tr:hover {
+  background: #e0e7ff;
+
 /* Mobile responsiveness*/
 @media (max-width: 768px) {
    .heading-container {
@@ -225,6 +267,20 @@ nav ul {
 
   nav ul li a {
     padding: 12px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  table, th, td {
+    font-size: 0.95rem;
+    padding: 10px 6px;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 

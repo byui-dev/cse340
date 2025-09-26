@@ -1,32 +1,40 @@
-const invModel = require("../models/inventory-model")
-const Util = {}
+const invModel = require("../models/inventory-model");
+const Util = {};
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  let data = await invModel.getClassifications();
+  let list = "<ul>";
+  list += '<li><a href="/" title="Home page">Home</a></li>';
   data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
-  return list
-}
+    list += `<li><a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">${row.classification_name}</a></li>`;
+  });
+  list += "</ul>";
+  return list;
+};
 
-module.exports = Util
+/* ************************
+ * Builds a classification grid from inventory array
+ ************************** */
+Util.buildClassificationGrid = function (inventory) {
+  if (!Array.isArray(inventory) || inventory.length === 0) {
+    return "<p>No inventory available for this classification.</p>";
+  }
 
-// Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId);
+  let grid = '<table>';
+  grid += '<thead><tr><th>Vehicle</th><th>Price</th><th>Description</th></tr></thead>';
+  grid += '<tbody>';
+  inventory.forEach((item) => {
+    grid += `<tr>
+      <td><a href="/inv/detail/${item.inv_id}">${item.inv_make} ${item.inv_model}</a></td>
+      <td>$${item.inv_price}</td>
+      <td>${item.inv_description}</td>
+    </tr>`;
+  });
+  grid += '</tbody></table>';
+  return grid;
+};
 
-module.exports = router;
+module.exports = Util;

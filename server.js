@@ -13,7 +13,7 @@ const static = require("./routes/static")
 const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
+const inventoryRoutes = require("./routes/inventoryRoute")
 
 /* ***********************
  * Middleware
@@ -61,4 +61,4 @@ app.listen(port, () => {
 })
 
 // Inventory routes
-app.use("/inv", inventoryRoute)
+app.use("/inv", inventoryRoutes)
