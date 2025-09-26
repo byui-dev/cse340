@@ -13,6 +13,7 @@ const static = require("./routes/static")
 const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
 
 /* ***********************
  * Middleware
@@ -58,3 +59,6 @@ const host = process.env.HOST || "localhost"
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+// Inventory routes
+app.use("/inv", inventoryRoute)
