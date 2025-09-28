@@ -7,7 +7,7 @@
  *************************/
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
-const env = require("dotenv").config()
+const env = require("dotenv").config({ path: "/etc/secrets/.env" })
 const app = express()
 const static = require("./routes/static")
 const session = require("express-session")
