@@ -14,6 +14,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const inventoryRoutes = require("./routes/inventoryRoute")
+const utilities = require("./utilities")
 
 /* ***********************
  * Middleware
@@ -44,7 +45,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(static)
 
 // Index  route
-app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
 
 /* ***********************
  * Local Server Information
@@ -62,3 +63,18 @@ app.listen(port, () => {
 
 // Inventory routes
 app.use("/inv", inventoryRoutes)
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
