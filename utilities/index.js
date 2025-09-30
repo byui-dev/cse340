@@ -48,7 +48,7 @@ Util.buildVehicleDetail = function (vehicle) {
   let detail = `
     <div class="vehicle-detail">
       <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
-      <img src="${vehicle.inv_image"} alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
       <p><strong>Price: </strong> $${vehicle.inv_price.toLocaleString()}</p>
       <p><strong>Year: </strong> ${vehicle.inv_year}</p>
       <p><strong>Mileage: </strong> ${vehicle.inv_miles.toLocaleString()} miles</p>
