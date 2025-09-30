@@ -33,10 +33,10 @@ invControl.buildByClassificationId = async function (req, res, next) {
  * Builds inventory detail view by Item ID
  **********************************************/
 invControl.buildByItemId = async function (req, res, next) {
-  const itemId = req.params.ItemId; // ✅ use lowercase to match below
+  const itemId = req.params.itemId; // lowercase
 
   try {
-    const item = await invModel.getItemById(itemId);
+    const item = await invModel.getInventoryById(itemId); // correct function name
     const nav = await utilities.getNav();
 
     if (!item) {
@@ -47,7 +47,7 @@ invControl.buildByItemId = async function (req, res, next) {
     }
 
     res.render("inventory/detail", {
-      title: `${item.make} ${item.model}`,
+      title: `${item.inv_make} ${item.inv_model}`, // use correct property names
       nav,
       item,
     });
