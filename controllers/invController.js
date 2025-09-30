@@ -1,7 +1,7 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
 
-const invCont = {};
+const invControl = {};
 
 /* ************************
  * Builds inventory view by classification ID
