@@ -37,6 +37,30 @@ Util.buildClassificationGrid = function (inventory) {
   return grid;
 };
 
+/***************************************************************** *
+ * Builds a single vehicle detail view
+*******************************************************************/
+Util.buildVehicleDetail = function (vehicle) {
+  if (!vehicle) {
+    return "<p>Vehicle not found.</p>";
+  }
+
+  let detail = `
+    <div class="vehicle-detail">
+      <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
+      <img src="${vehicle.inv_image"} alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      <p><strong>Price: </strong> $${vehicle.inv_price.toLocaleString()}</p>
+      <p><strong>Year: </strong> ${vehicle.inv_year}</p>
+      <p><strong>Mileage: </strong> ${vehicle.inv_miles.toLocaleString()} miles</p>
+      <p><strong>Description: </strong> ${vehicle.inv_description}</p>  
+    </div>
+  `;
+
+  return detail;
+};
+
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

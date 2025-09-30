@@ -29,4 +29,32 @@ invCont.buildByClassificationId = async function (req, res, next) {
   }
 };
 
+/**********************************************
+ Builds inventory detail view by Item ID
+ **********************************************/
+invControl.buildByItemId = async function (req, res, next) {
+  const ItemId = req.params.ItemId;
+
+  try {
+    const item = await invModel.getItemById(itemId);
+    const nav = await utilities.getNav();
+
+    if (!item) {
+      return res.status(404).render("errors/404", {
+        title: "Item Not Found",
+        nav,
+      });
+    }
+
+    res.render("inventory/detail", {
+      title: `${item.make} ${item.model}`,
+      nav,
+      item,
+    });
+  } catch (error) {
+    console.error("error building item detail view:", error);
+    next(error);
+  }
+};    
+
 module.exports = invCont;
