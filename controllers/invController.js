@@ -6,7 +6,7 @@ const invControl = {};
 /* ************************
  * Builds inventory view by classification ID
  ************************** */
-invCont.buildByClassificationId = async function (req, res, next) {
+invControl.buildByClassificationId = async function (req, res, next) {
   const classificationId = req.params.classificationId;
 
   try {
@@ -30,10 +30,10 @@ invCont.buildByClassificationId = async function (req, res, next) {
 };
 
 /**********************************************
- Builds inventory detail view by Item ID
+ * Builds inventory detail view by Item ID
  **********************************************/
 invControl.buildByItemId = async function (req, res, next) {
-  const ItemId = req.params.ItemId;
+  const itemId = req.params.ItemId; // ✅ use lowercase to match below
 
   try {
     const item = await invModel.getItemById(itemId);
@@ -52,9 +52,9 @@ invControl.buildByItemId = async function (req, res, next) {
       item,
     });
   } catch (error) {
-    console.error("error building item detail view:", error);
+    console.error("Error building item detail view:", error);
     next(error);
   }
-};    
+};
 
-module.exports = invCont;
+module.exports = invControl;
