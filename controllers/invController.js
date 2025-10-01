@@ -18,16 +18,19 @@ invControl.buildByClassificationId = async function (req, res, next) {
       ? `${inventory[0].classification_name} Vehicles`
       : "No Vehicles Found";
 
+    // 
     res.render("inventory/classification", {
       title,
       nav,
       grid,
+      messages: [] 
     });
   } catch (error) {
     console.error("Error building classification view:", error);
     next(error);
   }
 };
+
 
 /**********************************************
  * Builds inventory detail view by Item ID
