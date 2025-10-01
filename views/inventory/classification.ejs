@@ -1,15 +1,19 @@
 <% if (title) { %>
-    <h1> <%= title %></h1>
+    <h1>
+        <%= title %>
+    </h1>
     <% } %>
 
-    <%- nav %>
+        <%- nav %>
 
-    <%- grid %>
+            <%- grid %>
 
-<% if (messages && messages.length)  { %>
-    <ul class="messages">
-        <% messages.forEach(msg) => { %>
-            <li><%= msg %></li>
-        <% }) %>
-    </ul>
-<% } %>    
+                <% if (messages && messages.length) { %>
+                    <ul class="messages">
+                        <% messages.forEach(function(msg) { %>
+                            <li>
+                                <%= msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
