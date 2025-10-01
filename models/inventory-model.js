@@ -41,4 +41,14 @@ async function getInventoryById(inventory_id) {
   }   
 }
 
+async function updateImagePaths() {
+  await pool.query(`
+    UPDATE public.inventory
+    SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles'),
+        inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles')
+    WHERE inv_image NOT LIKE '%/vehicles/%'
+      AND inv_image NOT LIKE '%/vehicles/%'
+  `)
+}
+
 module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById };

@@ -1,11 +1,15 @@
 <% if (title) { %>
-    <h1>
-        <%= title %>
-    </h1>
-    <% } else { res.redirect('/') } %>
+    <h1> <%= title %></h1>
+    <% } %>
 
-        <%- nav %>
+    <%- nav %>
 
-            <%- grid %>
+    <%- grid %>
 
-<%# messages() %>
+<% if (messages && messages.length)  { %>
+    <ul class="messages">
+        <% messages.forEach(msg) => { %>
+            <li><%= msg %></li>
+        <% }) %>
+    </ul>
+<% } %>    
