@@ -1,0 +1,12 @@
+#top-header { ... }
+.siteName a { ... }
+#tools .account-link,
+#tools a { ... }
+/* Navigation Styles */
+nav { ... }
+nav ul { ... }
+nav ul li a { ... }
+nav ul li a:hover {
+  color: #3498db;
+  border-bottom: 2px solid #3498db;
+}
