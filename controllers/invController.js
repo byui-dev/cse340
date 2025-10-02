@@ -9,6 +9,14 @@ const invControl = {};
 invControl.buildByClassificationId = async function (req, res, next) {
   const classificationId = req.params.classificationId;
 
+  if (!Number.isInteger(classificationId)) {
+    const nav = await utilities.getNav();
+    return res.status(400).render("errors/400", {
+      title: "Invalid Classification ID",
+      nav,
+    });
+  }  
+  
   try {
     const inventory = await invModel.getInventoryByClassificationId(classificationId);
     const grid = utilities.buildClassificationGrid(inventory);
@@ -18,15 +26,16 @@ invControl.buildByClassificationId = async function (req, res, next) {
       ? `${inventory[0].classification_name} Vehicles`
       : "No Vehicles Found";
 
-    // 
+    const messages = inventory.length === 0 ? ["No vehicles found for this classification."] : [];
+    
     res.render("inventory/classification", {
       title,
       nav,
       grid,
-      messages: [] 
+      messages
     });
   } catch (error) {
-    console.error("Error building classification view:", error);
+    console.error(`[invControl] buildByClassificationId failed for ID=${classificationId}:`, error.message);
     next(error);
   }
 };
@@ -36,10 +45,18 @@ invControl.buildByClassificationId = async function (req, res, next) {
  * Builds inventory detail view by Item ID
  **********************************************/
 invControl.buildByItemId = async function (req, res, next) {
-  const itemId = req.params.itemId; // lowercase
+  const itemId = Number(req.params.itemId);
+  
+  if (!Number.isInteger(itemId)) {
+    const nav = await utilities.getNav();
+    return res.status(400).render("errors/400", {
+      title: "Invalid Item ID",
+      nav,
+    });
+  }
 
   try {
-    const item = await invModel.getInventoryById(itemId); // correct function name
+    const item = await invModel.getInventoryById(itemId); 
     const nav = await utilities.getNav();
 
     if (!item) {
@@ -50,12 +67,12 @@ invControl.buildByItemId = async function (req, res, next) {
     }
 
     res.render("inventory/detail", {
-      title: `${item.inv_make} ${item.inv_model}`, // use correct property names
+      title: `${item.inv_make} ${item.inv_model}`, 
       nav,
       item,
     });
   } catch (error) {
-    console.error("Error building item detail view:", error);
+    console.error(`[invControl] buildByItemId failed for ID=${itemID}:`, error.message);
     next(error);
   }
 };
