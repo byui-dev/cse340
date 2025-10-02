@@ -1,50 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<h1><%= item.inv_make %> <%= item.inv_model %></h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>
-        <%= item.inv_make %>
-            <%= item.inv_model %>
-    </title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
+<div class="vehicle-detail">
+  <!--Vehicle Image -->
+  <img src="<%= item.inv_image %>" alt="Image of <%= item.inv_make %> <%= item.inv_model %>">
 
-<body>
-    <main>
-        <div class="vehicle-detail">
-            <!-- Vehicle Image -->
-            <img src="<%= item.inv_image %>" alt="Image of <%= item.inv_make %> <%= item.inv_model %>">
+  <!-- Price-->
+  <p><strong>Price:</strong> 
+  <% if (item.inv_price) { %>
+    $<%= item.inv_price.toLocaleString() %>
+  <% } else { %>
+    Not available
+  <% } %>
+  </p> 
+    
+  <!-- Year -->
+  <p><strong>Year:</strong> <%= item.inv_year || "Not available" %></p>
 
-            <!-- Price -->
-            <p><strong>Price:</strong>
-                <% if (item.inv_price) { %>
-                    $<%= item.inv_price.toLocaleString() %>
-                        <% } else { %>
-                            Not available
-                            <% } %>
-            </p>
+  <!-- Mileage -->
+  <p><strong>Mileage:</strong>
+  <% if (item.inv_miles) { %>    
+    <%= item.inv_miles.toLocaleString() %> miles
+  <% } else { %>    
+    Not available
+  <% } %>   
+  </p>
 
-            <!-- Year -->
-            <p><strong>Year:</strong>
-                <%= item.inv_year || "Not available" %>
-            </p>
-
-            <!-- Mileage -->
-            <p><strong>Mileage:</strong>
-                <% if (item.inv_miles) { %>
-                    <%= item.inv_miles.toLocaleString() %> miles
-                        <% } else { %>
-                            Not available
-                            <% } %>
-            </p>
-
-            <!-- Description -->
-            <p><strong>Description:</strong>
-                <%= item.inv_description || "No description provided." %>
-            </p>
-        </div>
-    </main>
-</body>
-
-</html>
+  <!-- Description -->
+    <p><strong>Description:</strong> <%= item.inv_description || "No description available." %></p>
+</div>
