@@ -1,5 +1,5 @@
 :root {
-  --primary: #3498db
+  --primary: #3498db;
   --accent: #0077cc;
   --text: #222;
   --bg-light: #fff;
@@ -36,6 +36,14 @@ body {
   border: 8px solid var(--primary);
 }
 
+/* Header wrapper */
+.header-wrapper {
+  position: relative;
+  height: 100px;
+  margin-bottom: var(--spacing);
+}
+
+
 /* Navigation */
 nav {
   display: flex;
@@ -49,12 +57,33 @@ nav {
   margin-bottom: var(--spacing);
 }
 
-.nav-left,
-.nav-center,
+.nav-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 16px;
+}
+
 .nav-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 16px;
+}
+
+/* Center site name */
+.nav-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-center {
   display: flex;
   align-items: center;
 }
+
 
 .siteName {
   font-size: var(--font-lg);
@@ -284,8 +313,15 @@ tr:hover {
 
   .nav-left,
   .nav-right {
+    position: static;
     width: 100%;
     justify-content: space-between;
+    padding: 8px 16px;
+  }
+
+  .nav-header {
+    flex-direction: column;
+    text-align: center;
   }
 
   .siteName {
