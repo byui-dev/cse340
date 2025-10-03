@@ -7,7 +7,7 @@ const invControl = {};
  * Builds inventory view by classification ID
  ************************** */
 invControl.buildByClassificationId = async function (req, res, next) {
-  const classificationId = req.params.classificationId;
+  const classificationId = Number(req.params.classificationId);
 
   if (!Number.isInteger(classificationId)) {
     return res.status(400).send("Invalid classification ID.");
