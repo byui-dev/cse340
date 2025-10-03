@@ -57,6 +57,10 @@ nav {
   margin-bottom: var(--spacing);
 }
 
+.nav-center li a {
+  color: var(--bg-light);
+}
+
 .nav-left {
   position: absolute;
   top: 0;
@@ -76,6 +80,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
   width: 100%;
 }
 
@@ -86,9 +91,12 @@ nav {
 
 
 .siteName {
-  font-size: var(--font-lg);
+  position: absolute;
+  top: 0;
+  left: 0 ;
+  padding: 16px;
   font-weight: bold;
-  color: var(--bg-light);
+  color: var(--text);
   text-decoration: none;
 }
 
@@ -183,6 +191,14 @@ h2 {
 /* Responsive Section */
 .responsive-section {
   padding: var(--spacing);
+}
+
+.section-wrapper {
+  background-color: var(--bg-light);
+  padding: var(--spacing);
+  border-radius: var(--radius); 
+  box-shadow: var(--shadow);
+  margin-bottom: var(--spacing);
 }
 
 /* Heading Container */
