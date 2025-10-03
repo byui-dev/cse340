@@ -5,18 +5,18 @@ const Util = {};
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications();
+  const rows = await invModel.getClassifications();
+
+  if (!Array.isArray(rows) || rows.length === 0) {
+    console.error("Error: No classifications found", rows);
+  }
+  
   let list = "<ul>";
   list += '<li><a href="/" title="Home page">Home</a></li>';
 
-  if (data && Array.isArray(data.rows)) {
-    data.rows.forEach((row) => {
-      list += `<li><a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">${row.classification_name}</a></li>`;
-    });
-  } else {
-    console.error("Error: No data returned from getClassifications", data);
-    list += '<li><em>Navigation data unavailable</em></li>';
-  }    
+  rows.forEach((row) => {
+    list += `<li><a href="/inv/type/${row.classification_id}" title="View our ${row.classification_name} inventory">${row.classification_name}</a></li>`;
+  }); 
   
   list += "</ul>";
   return list;
