@@ -8,10 +8,10 @@ async function getClassifications() {
     const data = await pool.query(
       "SELECT * FROM public.classification ORDER BY classification_name"
     );
-    return data.rows;
+    return data;
   } catch (error) {
     console.error("[InventoryModel] getClassifications error:", error.message);
-    return [];
+    return null;
   }
 }
 
