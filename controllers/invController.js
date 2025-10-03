@@ -10,11 +10,7 @@ invControl.buildByClassificationId = async function (req, res, next) {
   const classificationId = req.params.classificationId;
 
   if (!Number.isInteger(classificationId)) {
-    const nav = await utilities.getNav();
-    return res.status(400).render("errors/400", {
-      title: "Invalid Classification ID",
-      nav,
-    });
+    return res.status(400).send("Invalid classification ID.");
   }  
   
   try {
@@ -48,23 +44,16 @@ invControl.buildByItemId = async function (req, res, next) {
   const itemId = Number(req.params.itemId);
   
   if (!Number.isInteger(itemId)) {
-    const nav = await utilities.getNav();
-    return res.status(400).render("errors/400", {
-      title: "Invalid Item ID",
-      nav,
-    });
+    return res.status(400).send("Invalid Item ID.");
   }
 
   try {
     const item = await invModel.getInventoryById(itemId); 
-    const nav = await utilities.getNav();
-
     if (!item) {
-      return res.status(404).render("errors/404", {
-        title: "Item Not Found",
-        nav,
-      });
+      return res.status(404).send("Item Not Found.");
     }
+
+    const nav = await utilities.getNav();
 
     res.render("inventory/detail", {
       title: `${item.inv_make} ${item.inv_model}`, 
