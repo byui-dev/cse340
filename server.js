@@ -30,11 +30,12 @@ const utilities = require("./utilities")
   name: 'sessionId',
 }))
 
-
+const path = require("path")
 
 /* ***********************
  * View engine and templates
  *************************/
+app.set("views", path.join(__dirname, "src", "views"))
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
