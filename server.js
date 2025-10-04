@@ -15,11 +15,12 @@ const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const inventoryRoutes = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
+const path = require("path")
 
 /* ***********************
  * Middleware
  * ************************/
- app.use(session({
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -29,8 +30,6 @@ const utilities = require("./utilities")
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
-const path = require("path")
 
 /* ***********************
  * View engine and templates
@@ -45,8 +44,27 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(static)
 
-// Index  route
+// Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
+
+// Inventory routes - MOVED HERE BEFORE app.listen()
+app.use("/inv", inventoryRoutes)
+
+/* ***********************
+ * Express Error Handler
+ * Place after all other middleware
+ *************************/
+app.use(async (err, req, res, next) => {
+  console.error(`Error at: ${req.originalUrl}: ${err.message}`)
+  const status = err.status || 500
+  const message = status === 404 ? err.message : 'Oh no! There was a crash. Maybe try a different route?'
+  const nav = await utilities.getNav()
+  res.status(status).render("errors/error", {
+    title: status + ' Error',
+    message,
+    nav
+  })
+})
 
 /* ***********************
  * Local Server Information
@@ -61,19 +79,3 @@ const host = process.env.HOST || "localhost"
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
-
-// Inventory routes
-app.use("/inv", inventoryRoutes)
-
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
-app.use(async (err, req, res, next) => {
-  console.error(`Error at: ${req.originalUrl}: ${err.message}`)
-  const status = err.status || 500
-  const message = status === 404 ? err.message : 'Sorry, something went wrong on the server'
-    res.status(status).send(`${status} Error: ${ message }`)
-})    
-
-  

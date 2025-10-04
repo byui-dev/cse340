@@ -147,6 +147,7 @@ h2 {
   margin-top: var(--spacing);
 }
 
+/* Hero Section - Homepage */
 .hero-section {
   display: flex;
   gap: 20px;
@@ -213,7 +214,7 @@ h2 {
   order: 2;
 }
 
-/* Responsive Section */
+/* Responsive Section - Homepage */
 .responsive-section {
   padding: var(--spacing) 0;
   margin-top: 20px;
@@ -227,7 +228,7 @@ h2 {
   margin-bottom: var(--spacing);
 }
 
-/* Heading Container */
+/* Heading Container - Homepage */
 .heading-container {
   display: flex;
   gap: 40px;
@@ -241,7 +242,7 @@ h2 {
   min-width: 300px;
 }
 
-/* Image Grid */
+/* Image Grid - Homepage */
 .image-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -279,7 +280,7 @@ h2 {
   font-size: 0.95rem;
 }
 
-/* Reviews List */
+/* Reviews List - Homepage */
 .special-features {
   margin-top: 15px;
   padding-left: 0;
@@ -300,6 +301,169 @@ h2 {
   position: absolute;
   left: 0;
   font-size: 1.2rem;
+}
+
+/* ==========================================
+   INVENTORY CLASSIFICATION GRID STYLES
+   ========================================== */
+
+#inv-display {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+#inv-display li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+#inv-display li img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#inv-display .namePrice {
+  margin-top: 10px;
+}
+
+#inv-display .namePrice hr {
+  border: 0;
+  border-top: 2px solid var(--primary);
+  margin: 10px 0;
+}
+
+#inv-display h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: var(--text);
+}
+
+#inv-display h2 a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#inv-display h2 a:hover {
+  color: var(--primary);
+}
+
+#inv-display span {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-top: 8px;
+}
+
+/* ==========================================
+   VEHICLE DETAIL PAGE STYLES
+   ========================================== */
+
+.vehicle-detail-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vehicle-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vehicle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vehicle-info h2 {
+  font-size: 2rem;
+  color: var(--text);
+  margin: 0;
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+.vehicle-specs {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.vehicle-specs p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.vehicle-specs .price {
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.vehicle-description {
+  margin-top: 10px;
+}
+
+.vehicle-description h3 {
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.vehicle-description p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Notice/Error Messages */
+.notice {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+  list-style: none;
+}
+
+.notice li {
+  color: #856404;
+  font-size: 1rem;
 }
 
 /* Table Styles */
@@ -342,7 +506,11 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Media Queries */
+/* ==========================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ========================================== */
+
+/* Tablet & Mobile */
 @media (max-width: 768px) {
   .header-wrapper {
     flex-direction: column;
@@ -355,6 +523,7 @@ footer {
     font-size: 1.5rem;
   }
 
+  /* Homepage two-column layout */
   .heading-container {
     flex-direction: column;
   }
@@ -369,6 +538,7 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  /* Homepage hero section */
   .hero-section {
     flex-direction: column;
     width: 100%;
@@ -387,6 +557,7 @@ footer {
     order: 2;
   }
 
+  /* Navigation mobile */
   nav {
     flex-direction: column;
     align-items: center;
@@ -417,6 +588,29 @@ footer {
   .responsive-section {
     padding: var(--spacing) 10px;
   }
+
+  /* Inventory classification grid - mobile */
+  #inv-display {
+    grid-template-columns: 1fr;
+  }
+
+  /* Vehicle detail page - mobile */
+  .vehicle-detail-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .vehicle-image img {
+    max-width: 100%;
+  }
+
+  .vehicle-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .vehicle-specs .price {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 700px) {
@@ -440,6 +634,10 @@ footer {
     width: 80px;
     height: 80px;
   }
+
+  #inv-display li img {
+    height: 150px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -461,6 +659,14 @@ footer {
   .text-overlay p:first-child {
     font-size: 1.1rem;
   }
+
+  .vehicle-specs {
+    padding: 15px;
+  }
+
+  .vehicle-specs p {
+    font-size: 1rem;
+  }
 }
 
 /* Tablet adjustments */
@@ -472,5 +678,9 @@ footer {
   .heading-left,
   .heading-right {
     flex: 1 1 48%;
+  }
+
+  #inv-display {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
