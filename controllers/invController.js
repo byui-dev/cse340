@@ -28,7 +28,8 @@ invControl.buildByClassificationId = async function (req, res, next) {
       title,
       nav,
       grid,
-      messages
+      messages,
+      error: null
     });
   } catch (error) {
     console.error(`[invControl] buildByClassificationId failed for ID=${classificationId}:`, error.message);
@@ -49,16 +50,19 @@ invControl.buildByItemId = async function (req, res, next) {
 
   try {
     const item = await invModel.getInventoryById(itemId); 
+   
     if (!item) {
       return res.status(404).send("Item Not Found.");
     }
 
     const nav = await utilities.getNav();
+    const vehicleDetail = utilities.buildVehicleDetail(item);
 
     res.render("inventory/detail", {
-      title: `${item.inv_make} ${item.inv_model}`, 
+      title: `${item.inv_year} ${item.inv_make} ${item.inv_model}`, 
       nav,
-      item,
+      vehicleDetail,
+      errors: null
     });
   } catch (error) {
     console.error(`[invControl] buildByItemId failed for ID=${itemID}:`, error.message);

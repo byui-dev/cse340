@@ -1,30 +1,13 @@
-<h1><%= item.inv_make %> <%= item.inv_model %></h1>
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } %>
 
-<div class="vehicle-detail">
-  <!--Vehicle Image -->
-  <img src="<%= item.inv_image %>" alt="Image of <%= item.inv_make %> <%= item.inv_model %>">
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.forEach(function(error) { %>
+       <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
 
-  <!-- Price-->
-  <p><strong>Price:</strong> 
-  <% if (item.inv_price) { %>
-    $<%= item.inv_price.toLocaleString() %>
-  <% } else { %>
-    Not available
-  <% } %>
-  </p> 
-    
-  <!-- Year -->
-  <p><strong>Year:</strong> <%= item.inv_year || "Not available" %></p>
-
-  <!-- Mileage -->
-  <p><strong>Mileage:</strong>
-  <% if (item.inv_miles) { %>    
-    <%= item.inv_miles.toLocaleString() %> miles
-  <% } else { %>    
-    Not available
-  <% } %>   
-  </p>
-
-  <!-- Description -->
-    <p><strong>Description:</strong> <%= item.inv_description || "No description available." %></p>
-</div>
+<%- vehicleDetail %>

@@ -1,19 +1,21 @@
 <% if (title) { %>
-    <h1>
-        <%= title %>
-    </h1>
-    <% } %>
+    <h1><%= title %></h1>
+<% } %>
 
-        <%- nav %>
+<% if (messages && messages.length > 0) { %>
+ <ul class="notice">
+   <% messages.forEach(function(msg) { %>
+    <li><%= msg %></li>
+   <% }) %>
+  </ul>
+<% } %>
 
-            <%- grid %>
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.forEach(function(error) { %>
+     <li><%= error.msg %></li>
+    <& }) %>
+    </ul>   
+<% } %>
 
-                <% if (messages && messages.length) { %>
-                    <ul class="messages">
-                        <% messages.forEach(function(msg) { %>
-                            <li>
-                                <%= msg %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } %>
+<%- grid %>

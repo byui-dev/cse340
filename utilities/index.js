@@ -27,52 +27,73 @@ Util.getNav = async function (req, res, next) {
  ************************** */
 Util.buildClassificationGrid = function (inventory) {
   if (!Array.isArray(inventory) || inventory.length === 0) {
-    return "<p>No inventory available for this classification.</p>";
+    return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
 
-  let grid = '<table>';
-  grid += '<thead><tr><th>Vehicle</th><th>Price</th><th>Description</th></tr></thead>';
-  grid += '<tbody>';
-  inventory.forEach((item) => {
-    grid += `<tr>
-      <td><a href="/inv/detail/${item.inv_id}">${item.inv_make} ${item.inv_model}</a></td>
-      <td>$${item.inv_price}</td>
-      <td>${item.inv_description}</td>
-    </tr>`;
+  let grid = '<ul id="inv-display">';
+
+  inventory.forEach((vehicle) => {
+    grid += '<li>';
+    grid += `<a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">`;
+    grid += `<img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors"/>`;
+    grid += '</a>';
+    grid += '<div class="namePrice">';
+    grid += '<hr />';
+    grid += '<h2>';
+    grid += `<a href="/inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">`;
+    grid += `${vehicle.inv_make} ${vehicle.inv_model}`;
+    grid += '</a>';
+    grid += '</h2>';
+    grid += `<span>$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span>`;
+    grid += '</div>';
+    grid += '</li>';
   });
-  grid += '</tbody></table>';
+
+  grid += '</ul>';
   return grid;
 };
 
-/***************************************************************** *
+/* ************************
  * Builds a single vehicle detail view
-*******************************************************************/
+ ************************** */
 Util.buildVehicleDetail = function (vehicle) {
   if (!vehicle) {
-    return "<p>Vehicle not found.</p>";
+    return '<p class="notice">Vehicle not found.</p>';
   }
 
-  let detail = `
-    <div class="vehicle-detail">
-      <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
-      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
-      <p><strong>Price: </strong> $${vehicle.inv_price.toLocaleString()}</p>
-      <p><strong>Year: </strong> ${vehicle.inv_year}</p>
-      <p><strong>Mileage: </strong> ${vehicle.inv_miles.toLocaleString()} miles</p>
-      <p><strong>Description: </strong> ${vehicle.inv_description}</p>  
-    </div>
-  `;
+  let detail = '<div class="vehicle-detail-wrapper">';
+
+  // Left side - Image 
+  detail += '<div class="vehicle-image">'; 
+  detail += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}"/>`; 
+  detail += '</div>';
+  
+  // Right side - Details
+  detail += '<div class="vehicle-info">';
+  detail += `<h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
+  
+  detail += '<div class="vehicle-specs">';
+  detail += `<p class="price"><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
+  detail += `<p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>`;
+  detail += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`;
+  detail += '</div>';
+
+  detail += '<div class="vehicle-description">';
+  detail += '<h3>Description</h3>';
+  detail += `<p>${vehicle.inv_description}</p>`;
+  detail += '</div>';
+
+  detail += '</div>'; // Close vehicle-info
+  detail += '</div>'; // Close vehicle-detail-wrapper
 
   return detail;
 };
-
-
 
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 module.exports = Util;
