@@ -1,10 +1,9 @@
-<!-- Header with Site Name and Account Link -->
-<div class="header-wrapper">
-  <a href="/" class="siteName" title="Return to home page">CSE Motors</a>
-  <a href="/account" class="account-link" title="Click to log in">My Account</a>
-</div>
+<% // Navigation items array - you can modify these links as needed const navItems=[ { href: '/' , text: 'Home' }, {
+  href: '/inv/type/coupe' , text: 'Coupe' }, { href: '/inv/type/sedan' , text: 'Sedan' }, { href: '/inv/type/sport' ,
+  text: 'Sport' }, { href: '/inv/type/suv' , text: 'SUV' }, { href: '/inv/type/truck' , text: 'Truck' } ]; %>
 
-<!-- Navigation - Dynamic from database -->
-<nav>
-  <%- nav %>
-</nav>
+  <% navItems.forEach(item=> { %>
+    <li><a href="<%= item.href %>" title="<%= item.text %>">
+        <%= item.text %>
+      </a></li>
+    <% }); %>
