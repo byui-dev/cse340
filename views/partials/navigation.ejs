@@ -1,9 +1,6 @@
-<% // Navigation items array - you can modify these links as needed const navItems=[ { href: '/' , text: 'Home' }, {
-  href: '/inv/type/coupe' , text: 'Coupe' }, { href: '/inv/type/sedan' , text: 'Sedan' }, { href: '/inv/type/sport' ,
-  text: 'Sport' }, { href: '/inv/type/suv' , text: 'SUV' }, { href: '/inv/type/truck' , text: 'Truck' } ]; %>
-
-  <% navItems.forEach(item=> { %>
-    <li><a href="<%= item.href %>" title="<%= item.text %>">
-        <%= item.text %>
-      </a></li>
-    <% }); %>
+<li><a href="/" title="Home">Home</a></li>
+<li><a href="/inv/type/coupe" title="Coupe">Coupe</a></li>
+<li><a href="/inv/type/sedan" title="Sedan">Sedan</a></li>
+<li><a href="/inv/type/sport" title="Sport">Sport</a></li>
+<li><a href="/inv/type/suv" title="SUV">SUV</a></li>
+<li><a href="/inv/type/truck" title="Truck">Truck</a></li>
