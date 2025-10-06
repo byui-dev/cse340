@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../partials/head') %>
-    <!-- Shared component styles -->
-    <link rel="stylesheet" href="/css/components/header.css">
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
-     <div class="page-container">
-      <!-- Shared header and navigation -->
-      <%- include('../partials/header') %>
-    
-    <main>
-       <%- body %>
-    </main>
-    <!-- Shared footer -->
-    <%- include('../partials/footer') %>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title || 'CSE Motors' %>
+  </title>
+  <link rel="stylesheet" href="/css/components/header.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="page-container">
+    <%- include('../navigation') %>
+
+      <main>
+        <%- body %>
+      </main>
+
+      <%- include('../partials/footer') %>
   </div>
 </body>
+
 </html>
