@@ -1,35 +1,34 @@
-<div class="main-wrapper">
-  <h1>Welcome to CSE Motors!</h1>
-  <%- messages() %>
+<!-- filepath: c:\Users\pc\Desktop\cse340-1\views\index.ejs -->
+<% const features=['3 Cup holders', 'Superman doors' , 'Fuzzy dice' ]; const upgrades=[ { src: 'flux-cap.png' ,
+  alt: 'Flux Capacitator' , caption: 'Flux Capacitator' }, { src: 'flame.jpg' , alt: 'Flame Decals' ,
+  caption: 'Flame Decals' }, { src: 'bumper_sticker.jpg' , alt: 'Bumper Stickers' , caption: 'Bumper Stickers' }, {
+  src: 'hub-cap.jpg' , alt: 'Hub Caps' , caption: 'Hub Caps' } ]; const reviews=[ '"So fast it\' s almost like traveling
+  in time." (4/5)', '"Coolest ride on the road." (4/5)' , '"I\' m feeling McFly!"
+  (5/5)', '"The most futuristic ride of our day." (4.5/5)' , '"80\' s livin and I love it!" (5/5)' ]; %>
+  <div class="main-wrapper">
+    <h1>Welcome to CSE Motors!</h1>
+    <%- messages() %>
 
-    <div class="hero-section">
-      <div class="text-overlay">
-        <p>DMC Delorean</p>
-        <% const features=['3 Cup holders', 'Superman doors' , 'Fuzzy dice' ]; %>
+      <div class="hero-section">
+        <div class="text-overlay">
+          <p>DMC Delorean</p>
           <% features.forEach(feature=> { %>
             <p>
               <%= feature %>
             </p>
-            <% }); %>
-
+            <% }) %>
               <a href="#" class="own-today-btn">
                 <img src="/images/site/own-today.png" alt="Own the Delorean Today" class="own-today" />
               </a>
+        </div>
+        <img class="main-image" src="/images/vehicles/delorean.jpg" alt="DMC Delorean" />
       </div>
 
-      <img class="main-image" src="/images/vehicles/delorean.jpg" alt="DMC Delorean" />
-    </div>
-
-    <section class="responsive-section">
-      <div class="heading-container">
-        <div class="heading-left">
-          <h2>Delorean Upgrades</h2>
-          <div class="image-grid">
-            <% const upgrades=[ { src: 'flux-cap.png' , alt: 'Flux Capacitator' , caption: 'Flux Capacitator' }, {
-              src: 'flame.jpg' , alt: 'Flame Decals' , caption: 'Flame Decals' }, { src: 'bumper_sticker.jpg' ,
-              alt: 'Bumper Stickers' , caption: 'Bumper Stickers' }, { src: 'hub-cap.jpg' , alt: 'Hub Caps' ,
-              caption: 'Hub Caps' } ]; %>
-
+      <section class="responsive-section">
+        <div class="heading-container">
+          <div class="heading-left">
+            <h2>Delorean Upgrades</h2>
+            <div class="image-grid">
               <% upgrades.forEach(upgrade=> { %>
                 <div class="image-item">
                   <img src="/images/upgrades/<%= upgrade.src %>" alt="<%= upgrade.alt %>" />
@@ -37,24 +36,19 @@
                     <%= upgrade.caption %>
                   </p>
                 </div>
-                <% }); %>
+                <% }) %>
+            </div>
           </div>
-        </div>
-
-        <div class="heading-right">
-          <h2>DMC Delorean Reviews</h2>
-          <ul class="special-features">
-            <% const reviews=[ '"So fast it\' s almost like traveling in time."
-              (4/5)', '"Coolest ride on the road." (4/5)' , '"I\' m feeling McFly!"
-              (5/5)', '"The most futuristic ride of our day." (4.5/5)' , '"80\' s livin and I love it!" (5/5)' ]; %>
-
+          <div class="heading-right">
+            <h2>DMC Delorean Reviews</h2>
+            <ul class="special-features">
               <% reviews.forEach(review=> { %>
                 <li>
                   <%= review %>
                 </li>
-                <% }); %>
-          </ul>
+                <% }) %>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
-</div>
+      </section>
+  </div>
