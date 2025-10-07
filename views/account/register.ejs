@@ -1,0 +1,24 @@
+<section class="register-section">
+  <h1><%= title  %></h1>
+    <form action="/account/register" method="POST" class="registration-form">
+        <h2>ALL FIELDS ARE REQUIRED.</h2>
+        <div class="form-group">
+        <label for="firstname">First Name:</Label>
+        <input type="firstname" id="firstname" name="account_firstname" required>
+        </div>
+        <div class="form-group">
+        <label for="lastname">Last Name:</Label>
+        <input type="lastname" id="lastname" name="account_lastname" required>
+        </div>
+        <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="account_email" required>
+        </div>
+        <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="account_password" required>
+        </div>
+        <button type="submit" class="register-button">Register</button>
+    </form>
+</section>
+  
