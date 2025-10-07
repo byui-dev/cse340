@@ -16,4 +16,12 @@ async function buildLogin(req, res, next) {
     })
 }
 
-module.exports = { buildLogin }
+async function buildAccountHome(req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("account/home", {
+        title: "My Account",
+        nav,
+     })
+}
+
+module.exports = { buildLogin, buildAccountHome };

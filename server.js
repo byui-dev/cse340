@@ -7,15 +7,23 @@
  *************************/
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
+const path = require("path")
 const env = require("dotenv").config({ path: "/etc/secrets/.env" })
 const app = express()
+
+// Static middleware for serving static files
+app.use(express.static(path.join(__dirname, "public")))
+app.use("/css", express.static(path.join(__dirname, "/public/css")))
+app.use("/js", express.static(path.join(__dirname, "/public/js")))
+app.use("/images", express.static(path.join(__dirname, "/public/images")))
+
 const static = require("./routes/static")
 const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
-const path = require("path")
+
 
 /* ***********************
  * Middleware
@@ -49,7 +57,6 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(static)
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
