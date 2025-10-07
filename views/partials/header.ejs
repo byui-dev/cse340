@@ -1,19 +1,24 @@
 <div class="header-wrapper">
-    <div class="nav-header">
-        <a href="/" class="siteName">CSE Motors</a>
-    </div>
-    <a href="/account" class="account-link">My Account</a>
+  <div class="nav-header">
+    <a href="/" class="siteName">CSE Motors</a>
+  </div>
+  <a title="Click to log in" href="/account/login" class="account-link">My Account</a>
 </div>
 
-<nav>
-    <ul class="nav-center">
-        <% const navItems=[ { href: '/' , label: 'Home' }, { href: '/custom' , label: 'Custom' }, { href: '/sedan' ,
-            label: 'Sedan' }, { href: '/suv' , label: 'SUV' }, { href: '/truck' , label: 'Truck' } ]; %>
+<nav role="navigation" aria-label="Main Navigation">
+  <ul class="nav-center">
+    <% const navItems = [
+      { href: '/', label: 'Home' },
+      { href: '/custom', label: 'Custom' },
+      { href: '/sedan', label: 'Sedan' },
+      { href: '/suv', label: 'SUV' },
+      { href: '/truck', label: 'Truck' }
+    ]; %>
 
-            <% navItems.forEach(item=> { %>
-                <li><a href="<%= item.href %>">
-                        <%= item.label %>
-                    </a></li>
-                <% }); %>
-    </ul>
+    <% navItems.forEach(item => { %>
+      <li class="<%= typeof currentPath !== 'undefined' && currentPath === item.href ? 'active' : '' %>">
+        <a href="<%= item.href %>"><%= item.label %></a>
+      </li>
+    <% }); %>
+  </ul>
 </nav>

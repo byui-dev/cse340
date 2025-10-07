@@ -4,22 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    <%= title || 'CSE Motors' %>
-  </title>
+  <title><%= title || 'CSE Motors' %></title>
   <link rel="stylesheet" href="/css/components/header.css">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <div class="page-container">
-    <%- include('../navigation') %>
+    <%- include('../partials/navigation') %>
 
-      <main>
-        <%- body %>
-      </main>
+    <main role="main" class="main-content">
+      <%- body %>
+    </main>
 
-      <%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>
   </div>
 </body>
 

@@ -1,0 +1,16 @@
+<section class="login-section">
+  <h1><%= title  %></h1>
+    <form action="/account/login" method="POST" class="login-form">
+        <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="account_email" required>
+        </div>
+        <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="account_password" required>
+        </div>
+        <button type="submit" class="login-button">Log In</button>
+        <p class="signup-link">No account? <a href="/account/register">Sign-up</a></p>
+    </form>
+</section>
+  

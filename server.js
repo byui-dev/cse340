@@ -13,7 +13,7 @@ const static = require("./routes/static")
 const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController")
-const inventoryRoutes = require("./routes/inventoryRoute")
+const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const path = require("path")
 
@@ -55,9 +55,24 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes - MOVED HERE BEFORE app.listen()
-app.use("/inv", inventoryRoutes)
+app.use("/inv", require("./routes/inventoryRoute"))
 
-/* ***********************
+// Account routes
+app.use("/account", require("./routes/accountRoute")) 
+
+/******************************************
+ * File Not Found Route must be placed last
+ * Week 4 Activities
+ *******************************************/
+app.use(async (req, res, next) => {
+  next({ 
+    status: 404, 
+    message: "Sorry, we appear to have lost that page." 
+  })
+})
+
+
+ /* ***********************
  * Express Error Handler
  * Place after all other middleware
  *************************/
