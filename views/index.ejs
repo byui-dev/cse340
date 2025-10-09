@@ -1,15 +1,17 @@
 <div class="main-wrapper">
   <h1>Welcome to CSE Motors!</h1>
-  <%- typeof messages === 'function' ? messages() : '' %>
 
   <!-- Hero Section -->
   <div class="hero-section">
     <div class="text-overlay">
       <p>DMC Delorean</p>
-      <% const features = ['3 Cup holders', 'Superman doors', 'Fuzzy dice']; %>
-      <% features.forEach(feature => { %>
-        <p><%= feature %></p>
-      <% }); %>
+      <ul class="features-list">
+        <% features.forEach(feature=> { %>
+          <li>
+            <%= feature %>
+          </li>
+          <% }); %>
+      </ul>
 
       <a href="#" class="own-today-btn">
         <img src="/images/site/own_today.png" alt="Own the Delorean Today" class="own-today" />
@@ -25,20 +27,15 @@
       <!-- Upgrades Grid -->
       <div class="heading-left">
         <h2>Delorean Upgrades</h2>
-        <div class="image-grid">
-          <% const upgrades = [
-            { src: 'flux-cap.png', alt: 'Flux Capacitator', caption: 'Flux Capacitator' },
-            { src: 'flame.jpg', alt: 'Flame Decals', caption: 'Flame Decals' },
-            { src: 'bumper_sticker.jpg', alt: 'Bumper Stickers', caption: 'Bumper Stickers' },
-            { src: 'hub-cap.jpg', alt: 'Hub Caps', caption: 'Hub Caps' }
-          ]; %>
-
-          <% upgrades.forEach(upgrade => { %>
+        <div class="image-grid responsive-grid">
+          <% upgrades.forEach(upgrade=> { %>
             <div class="image-item">
               <img src="/images/upgrades/<%= upgrade.src %>" alt="<%= upgrade.alt %>" />
-              <p class="caption"><%= upgrade.caption %></p>
+              <p class="caption">
+                <%= upgrade.caption %>
+              </p>
             </div>
-          <% }); %>
+            <% }); %>
         </div>
       </div>
 
@@ -46,17 +43,16 @@
       <div class="heading-right">
         <h2>DMC Delorean Reviews</h2>
         <ul class="special-features">
-          <% const reviews = [
-            '"So fast it\'s almost like traveling in time." (4/5)',
-            '"Coolest ride on the road." (4/5)',
-            '"I\'m feeling McFly!" (5/5)',
-            '"The most futuristic ride of our day." (4.5/5)',
-            '"80\'s livin and I love it!" (5/5)'
-          ]; %>
-
-          <% reviews.forEach(review => { %>
-            <li><%= review %></li>
-          <% }); %>
+          <% reviews.forEach(review=> {
+            const rating = review.match(/\((\d(?:\.\d)?)\/5\)/)?.[1];
+            %>
+            <li>
+              <%= review %>
+                <% if (rating) { %>
+                  <span class="stars">⭐️ <%= rating %>/5</span>
+                  <% } %>
+            </li>
+            <% }); %>
         </ul>
       </div>
     </div>

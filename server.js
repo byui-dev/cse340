@@ -1,110 +1,65 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const expressLayouts = require("express-ejs-layouts")
-const path = require("path")
-const env = require("dotenv").config({ path: "/etc/secrets/.env" })
-const app = express()
+// ===== 1. Core Imports =====
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const app = express();
 
-// Static middleware for serving static files
-app.use(express.static(path.join(__dirname, "public")))
-app.use("/css", express.static(path.join(__dirname, "/public/css")))
-app.use("/js", express.static(path.join(__dirname, "/public/js")))
-app.use("/images", express.static(path.join(__dirname, "/public/images")))
+// ===== 2. Custom Modules =====
+const getClassifications = require('./utilities/classification'); // adjust path if needed
 
-const static = require("./routes/static")
-const session = require("express-session")
-const pool = require('./database/')
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-const utilities = require("./utilities")
+// ===== 3. Middleware Setup =====
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-
-/* ***********************
- * Middleware
- * ************************/
+// ===== 4. Session Configuration =====
 app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}))
+  secret: 'yourSecretKey', // replace with env variable in production
+  resave: false,
+  saveUninitialized: true
+}));
 
-// Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
-  next()
-})
-
-/* ***********************
- * View engine and templates
- *************************/
-app.set("views", path.join(__dirname, "views"))
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
-
-/* ***********************
- * Routes
- *************************/
-
-// Index route
-app.get("/", utilities.handleErrors(baseController.buildHome))
-
-// Inventory routes - MOVED HERE BEFORE app.listen()
-app.use("/inv", require("./routes/inventoryRoute"))
-
-// Account routes
-app.use("/account", require("./routes/accountRoute")) 
-
-/******************************************
- * File Not Found Route must be placed last
- * Week 4 Activities
- *******************************************/
+// ===== 5. Global View Variables =====
 app.use(async (req, res, next) => {
-  next({ 
-    status: 404, 
-    message: "Sorry, we appear to have lost that page." 
-  })
-})
+  try {
+    const classifications = await getClassifications();
+    res.locals.navItems = classifications.map(c => ({
+      href: `/classification/${c.classification_name.toLowerCase()}`,
+      label: c.classification_name
+    }));
+  } catch (err) {
+    res.locals.navItems = [];
+  }
+  res.locals.loggedIn = req.session?.loggedIn || false;
+  res.locals.title = 'CSE Motors';
+  res.locals.currentPath = req.path; // add this for active link highlighting
+  next();
+});
 
 
- /* ***********************
- * Express Error Handler
- * Place after all other middleware
- *************************/
-app.use(async (err, req, res, next) => {
-  console.error(`Error at: ${req.originalUrl}: ${err.message}`)
-  const status = err.status || 500
-  const message = status === 404 ? err.message : 'Oh no! There was a crash. Maybe try a different route?'
-  const nav = await utilities.getNav()
-  res.status(status).render("errors/error", {
-    title: status + ' Error',
-    message,
-    nav
-  })
-})
+// ===== 6. View Engine Setup =====
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file with fallbacks
- *************************/
-const port = process.env.PORT || 3000
-const host = process.env.HOST || "localhost"
+// ===== 7. Route Handlers =====
+const homeRoutes = require('./routes/home');
+const accountRoutes = require('./routes/account');
+// Debugging
+app.get('/debug', (req, res) => {
+  res.send({
+    navItems: res.locals.navItems,
+    loggedIn: res.locals.loggedIn,
+    currentPath: res.locals.currentPath
+  });
+});
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+
+app.use('/', homeRoutes);
+app.use('/account', accountRoutes);
+
+// ===== 8. Error Handling (Optional) =====
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).render('error', { message: 'Something went wrong!' });
+// });
+

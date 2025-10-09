@@ -1,14 +1,14 @@
-<section class="register-section">
+<section class=" form-section">
   <h1><%= title  %></h1>
-    <form action="/account/register" method="POST" class="registration-form">
+    < action="/account/register" method="POST" class="auth-form">
         <h2>ALL FIELDS ARE REQUIRED.</h2>
         <div class="form-group">
         <label for="firstname">First Name:</Label>
-        <input type="firstname" id="firstname" name="account_firstname" required>
+        <input type="text" id="firstname" name="account_firstname" required>
         </div>
         <div class="form-group">
         <label for="lastname">Last Name:</Label>
-        <input type="lastname" id="lastname" name="account_lastname" required>
+        <input type="text" id="lastname" name="account_lastname" required>
         </div>
         <div class="form-group">
         <label for="email">Email Address:</label>
@@ -16,9 +16,10 @@
         </div>
         <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" name="account_password" required>
-        </div>
-        <button type="submit" class="register-button">Register</button>
+        <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        </div><i>Passwords must be at least 12 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.</i></div>
+        <div id="pswdBtn">Show Password</div>
+        <button type="submit" class="auth-button">Register</button>
     </form>
 </section>
   

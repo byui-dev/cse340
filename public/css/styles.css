@@ -507,73 +507,10 @@ footer {
 }
 
 /*==========================================
-   FORM STYLES
-   ========================================== */
-.login-section {
-  background-color: #f8f9fa;
-  color: #f0f0f0;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 400px;
-  margin: 2rem auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.login-section h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.login-form .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.login-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: var(--text);
-}
-
-.login-form input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.login-button {
-  width: 100%;
-  padding: 0.75rem;
+   UNIFIED FORM STYLES
+===========================================*/
+.form-section {
   background-color: var(--primary);
-  color: var(--bg-light);
-  border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: var(--accent);
-}
-
-.signup-link {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.signup-link a {
-  color: var(--primary);
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-.register-section {
-  background-color: #f8f9fa;
   color: #f0f0f0;
   padding: 2rem;
   border-radius: 8px;
@@ -582,24 +519,25 @@ footer {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.register-section h1 {
+.form-section h1 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
-.register-form .form-group {
+/* Shared form layout */
+.auth-form .form-group {
   margin-bottom: 1.5rem;
 }
 
-.register-form label {
+.auth-form label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: var(--text);
 }
 
-.register-form input {
+.auth-form input {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
@@ -607,11 +545,15 @@ footer {
   font-size: 1rem;
 }
 
-.register-button {
+/* Shared button styles */
+.auth-button {
   width: 100%;
   padding: 0.75rem;
   background-color: var(--primary);
-  color: var(--bg-light);
+  color: #ffffff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   border: none;
   border-radius: 4px;
   font-size: 1.1rem;
@@ -619,22 +561,38 @@ footer {
   transition: background-color 0.3s ease;
 }
 
-.register-button:hover {
+.auth-button:hover {
   background-color: var(--accent);
 }
 
-.register-link {
+/* Shared link styles */
+.auth-link {
   text-align: center;
   margin-top: 1rem;
   font-size: 0.9rem;
+  color: #f0f0f0;
 }
 
-.register-link a {
-  color: var(--primary);
-  text-decoration: underline;
+.auth-link a {
+  color: #ffffff;
   font-weight: bold;
+  text-decoration: underline;
+  letter-spacing: 0.3px;
 }
 
+.auth-link a:hover {
+  color: var(--accent);
+}
+
+.error-link {
+  color: var(--text);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.error-link:hover {
+  color: var(--primary);
+}
 
 /* ==========================================
    MEDIA QUERIES - RESPONSIVE DESIGN

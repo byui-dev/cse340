@@ -7,7 +7,7 @@ const invControl = {};
  * Builds inventory view by classification ID
  ************************** */
 invControl.buildByClassificationId = async function (req, res, next) {
-  const classificationId = Number(req.params.classificationId);
+  const classificationId = parseInt(req.params.classificationId);
 
   if (!Number.isInteger(classificationId)) {
     return res.status(400).send("Invalid classification ID.");
@@ -29,7 +29,7 @@ invControl.buildByClassificationId = async function (req, res, next) {
       nav,
       grid,
       messages,
-      error: null
+      errors: null
     });
   } catch (error) {
     console.error(`[invControl] buildByClassificationId failed for ID=${classificationId}:`, error.message);
@@ -42,7 +42,7 @@ invControl.buildByClassificationId = async function (req, res, next) {
  * Builds inventory detail view by Item ID
  **********************************************/
 invControl.buildByItemId = async function (req, res, next) {
-  const itemId = Number(req.params.itemId);
+  const itemId = parseInt(req.params.itemId, 10);
   
   if (!Number.isInteger(itemId)) {
     return res.status(400).send("Invalid Item ID.");
@@ -65,7 +65,7 @@ invControl.buildByItemId = async function (req, res, next) {
       errors: null
     });
   } catch (error) {
-    console.error(`[invControl] buildByItemId failed for ID=${itemID}:`, error.message);
+    console.error(`[invControl] buildByItemId failed for ID=${itemId}:`, error.message);
     next(error);
   }
 };

@@ -1,38 +1,67 @@
+// accountController.js
+
+const accountModel = require("../models/account-model");
+
 /************************************************************
- * Account Controller
- * Week 4, deliver login view activity
- * **********************************************************/
-const utilities = require('../utilities')
- 
-/********************************************************* *
  * Deliver login view
- * Week 4, Deliver login view activity
  ************************************************************/
-async function buildLogin(req, res, next) {
-    let nav = await utilities.getNav()
-    res.render("account/login", {
-        title: "Login",
-        nav,
-    })
+function buildLogin(req, res) {
+  res.render("account/login", {
+    title: "Login"
+  });
 }
-/*************************************************************
+
+/************************************************************
  * Deliver registration view
-**************************************************************/
-async function buildRegister(req, res, next) {
-  let nav = await utilities.getNav()
+ ************************************************************/
+function buildRegister(req, res) {
   res.render("account/register", {
     title: "Register",
-    nav,
     errors: null
-  })
+  });
 }
 
-async function buildAccountHome(req, res, next) {
-    let nav = await utilities.getNav();
-    res.render("account/home", {
-        title: "My Account",
-        nav,
-     })
+/************************************************************
+ * Deliver account home view
+ ************************************************************/
+function buildAccountHome(req, res) {
+  res.render("account/home", {
+    title: "My Account"
+  });
 }
 
-module.exports = { buildLogin, buildRegister, buildAccountHome };
+/************************************************************
+ * Process registration form
+ ************************************************************/
+async function registerAccount(req, res) {
+  const { account_firstname, account_lastname, account_email, account_password } = req.body;
+
+  const regResult = await accountModel.registerAccount(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_password
+  );
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you're registered ${account_firstname}. Please log in.`
+    );
+    res.status(201).render("account/login", {
+      title: "Login"
+    });
+  } else {
+    req.flash("notice", "Sorry, the registration failed.");
+    res.status(501).render("account/register", {
+      title: "Registration"
+    });
+  }
+}
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  buildAccountHome,
+  registerAccount
+};
