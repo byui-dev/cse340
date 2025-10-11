@@ -1,0 +1,45 @@
+<section class="account-management">
+    <h1>
+        <%= title %>
+    </h1>
+
+    <% if (messages.notice) { %>
+        <p class="notice">
+            <%= messages.notice %>
+        </p>
+        <% } %>
+
+            <% if (messages.error) { %>
+                <p class="error">
+                    <%= messages.error %>
+                </p>
+                <% } %>
+
+                    <% if (typeof accountData !=='undefined' && accountData) { %>
+                        <div class="account-info">
+                            <h2>Welcome, <%= accountData.account_firstname %>
+                                    <%= accountData.account_lastname %>!</h2>
+                            <p><strong>Email:</strong>
+                                <%= accountData.account_email %>
+                            </p>
+                            <p><strong>Account Type:</strong>
+                                <%= accountData.account_type %>
+                            </p>
+                        </div>
+
+                        <div class="account-actions">
+                            <h3>Account Actions</h3>
+                            <ul>
+                                <li><a href="/account/update" class="btn btn-secondary">Update Account Information</a>
+                                </li>
+
+                                <% if (accountData.account_type==='Employee' || accountData.account_type==='Admin' ) {
+                                    %>
+                                    <li><a href="/inv" class="btn btn-primary">Inventory Management</a></li>
+                                    <% } %>
+                            </ul>
+                        </div>
+                        <% } else { %>
+                            <p>Please <a href="/account/login">log in</a> to view your account.</p>
+                            <% } %>
+</section>

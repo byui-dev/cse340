@@ -1,15 +1,692 @@
-<header class="site-header">
-  <div class="header-container">
-    <a href="/">CSE Motors</a>
-  </div>
+/* Reset and Base Styles */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
 
-  <div class="account-link">
-    <% if (typeof loggedin !== 'undefined' && loggedin) { %>
-       <a href="/account">Welcome <% accountData.account_firstname %></a>
-       <a href="/account/logout">Logout</a>
-    <% else { %>
-      <a href="/account/login">My Account</a>
-    <% } %>     
-  </div>
- </div> 
-</header>
+body {
+font-family: Arial, sans-serif;
+line-height: 1.6;
+color: #333;
+background-color: #f4f4f4;
+}
+
+.wrapper {
+max-width: 1200px;
+margin: 0 auto;
+background-color: white;
+border-left: 20px solid;
+border-right: 20px solid;
+border-image: repeating-linear-gradient(
+45deg,
+black 0,
+black 20px,
+white 20px,
+white 40px
+) 20;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+/* Header Styles */
+.site-header {
+background-color: white;
+padding: 1rem 2rem;
+border-bottom: 2px solid #333;
+}
+
+.header-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo a {
+font-size: 1.8rem;
+font-weight: bold;
+color: #333;
+text-decoration: none;
+}
+
+.account-link a {
+color: #333;
+text-decoration: none;
+margin-left: 1rem;
+}
+
+.account-link a:hover {
+text-decoration: underline;
+}
+
+/* Navigation Styles */
+.main-navigation {
+background-color: #333;
+padding: 0;
+}
+
+.main-navigation ul {
+list-style: none;
+display: flex;
+justify-content: space-around;
+margin: 0;
+padding: 0;
+}
+
+.main-navigation li {
+flex: 1;
+}
+
+.main-navigation a {
+display: block;
+color: white;
+text-decoration: none;
+padding: 1rem;
+text-align: center;
+transition: background-color 0.3s;
+}
+
+.main-navigation a:hover,
+.main-navigation a.active {
+background-color: #555;
+}
+
+/* Main Content */
+main {
+flex: 1;
+padding: 2rem;
+}
+
+h1 {
+font-size: 2rem;
+margin-bottom: 1.5rem;
+}
+
+/* Hero Section */
+.hero {
+margin-bottom: 2rem;
+}
+
+.hero-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+align-items: center;
+background-color: #e8f4f8;
+padding: 2rem;
+border-radius: 8px;
+}
+
+.delorean-title {
+color: #00a8e1;
+font-size: 2.5rem;
+margin-bottom: 1rem;
+}
+
+.delorean-features {
+list-style: none;
+margin-bottom: 1.5rem;
+}
+
+.delorean-features li {
+color: #00a8e1;
+font-size: 1.1rem;
+margin-bottom: 0.5rem;
+}
+
+.btn {
+display: inline-block;
+padding: 0.8rem 2rem;
+text-decoration: none;
+border-radius: 4px;
+transition: background-color 0.3s;
+}
+
+.btn-primary {
+background-color: #00a8e1;
+color: white;
+}
+
+.btn-primary:hover {
+background-color: #0088b8;
+}
+
+.delorean-image img {
+max-width: 100%;
+height: auto;
+}
+
+/* Content Grid */
+.content-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+}
+
+h2 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+padding-bottom: 0.5rem;
+border-bottom: 2px solid #333;
+}
+
+/* Upgrades Section */
+.upgrade-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
+}
+
+.upgrade-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 1rem;
+background-color: #00a8e1;
+border-radius: 8px;
+text-decoration: none;
+color: white;
+transition: background-color 0.3s;
+}
+
+.upgrade-item:hover {
+background-color: #0088b8;
+}
+
+.upgrade-item img {
+width: 80px;
+height: 80px;
+margin-bottom: 0.5rem;
+background-color: rgba(255, 255, 255, 0.9);
+padding: 0.5rem;
+border-radius: 4px;
+}
+
+.upgrade-item span {
+font-weight: bold;
+text-align: center;
+}
+
+/* Reviews Section */
+.reviews-list {
+list-style: none;
+}
+
+.reviews-list li {
+padding: 0.8rem 0;
+border-bottom: 1px solid #ddd;
+}
+
+.reviews-list li:last-child {
+border-bottom: none;
+}
+
+/* Footer Styles */
+.site-footer {
+background-color: #333;
+color: white;
+text-align: center;
+padding: 1rem;
+margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.wrapper {
+border-left: 10px solid;
+border-right: 10px solid;
+}
+
+.hero-content {
+grid-template-columns: 1fr;
+}
+
+.content-grid {
+grid-template-columns: 1fr;
+}
+
+.main-navigation ul {
+flex-direction: column;
+}
+
+.main-navigation li {
+border-bottom: 1px solid #555;
+}
+
+.main-navigation li:last-child {
+border-bottom: none;
+}
+
+#inv-display {
+grid-template-columns: 1fr;
+}
+
+.vehicle-detail {
+grid-template-columns: 1fr;
+}
+}
+
+/* Classification Grid Styles */
+#inv-display {
+list-style: none;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 2rem;
+padding: 0;
+margin: 2rem 0;
+}
+
+#inv-display li {
+background-color: #f9f9f9;
+border: 1px solid #ddd;
+border-radius: 8px;
+overflow: hidden;
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#inv-display li:hover {
+transform: translateY(-5px);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#inv-display img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+}
+
+.namePrice {
+padding: 1rem;
+}
+
+.namePrice hr {
+margin: 0.5rem 0;
+border: none;
+border-top: 2px solid #333;
+}
+
+.namePrice h2 {
+font-size: 1.2rem;
+margin: 0.5rem 0;
+border: none;
+padding: 0;
+}
+
+.namePrice h2 a {
+color: #333;
+text-decoration: none;
+}
+
+.namePrice h2 a:hover {
+color: #00a8e1;
+}
+
+.namePrice span {
+display: block;
+font-size: 1.1rem;
+font-weight: bold;
+color: #00a8e1;
+margin-top: 0.5rem;
+}
+
+/* Vehicle Detail Styles */
+.vehicle-detail {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin: 2rem 0;
+padding: 2rem;
+background-color: #f9f9f9;
+border-radius: 8px;
+}
+
+.vehicle-image img {
+width: 100%;
+height: auto;
+border-radius: 8px;
+}
+
+.vehicle-info h2 {
+font-size: 2rem;
+margin-bottom: 1rem;
+color: #333;
+border: none;
+padding: 0;
+}
+
+.vehicle-price {
+font-size: 1.5rem;
+font-weight: bold;
+color: #00a8e1;
+margin-bottom: 1rem;
+}
+
+.vehicle-description {
+margin-bottom: 1.5rem;
+line-height: 1.8;
+}
+
+.vehicle-specs {
+list-style: none;
+padding: 0;
+}
+
+.vehicle-specs li {
+padding: 0.5rem 0;
+border-bottom: 1px solid #ddd;
+}
+
+.vehicle-specs li:last-child {
+border-bottom: none;
+}
+
+/* Message Styles */
+.notice,
+.error {
+padding: 1rem;
+margin: 1rem 0;
+border-radius: 4px;
+}
+
+.notice {
+background-color: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
+
+.error {
+background-color: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+}
+
+.inventory-container {
+margin: 2rem 0;
+}
+
+/* Management View Styles */
+.management-container {
+max-width: 800px;
+margin: 2rem auto;
+padding: 2rem;
+}
+
+.management-container h2 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+color: #333;
+}
+
+.management-container p {
+margin-bottom: 2rem;
+color: #666;
+}
+
+.management-links {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+margin-top: 2rem;
+}
+
+.management-btn {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem;
+background-color: #00a8e1;
+color: white;
+text-decoration: none;
+border-radius: 8px;
+transition: all 0.3s ease;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+min-height: 150px;
+}
+
+.management-btn:hover {
+background-color: #0088b8;
+transform: translateY(-5px);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.management-btn .btn-icon {
+font-size: 3rem;
+margin-bottom: 1rem;
+}
+
+.management-btn .btn-text {
+font-size: 1.1rem;
+font-weight: bold;
+text-align: center;
+}
+
+/* Form Styles */
+form {
+max-width: 600px;
+margin: 2rem auto;
+padding: 2rem;
+background-color: #f9f9f9;
+border-radius: 8px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+margin-bottom: 1.5rem;
+}
+
+.form-group label {
+display: block;
+font-weight: bold;
+margin-bottom: 0.5rem;
+color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%;
+padding: 0.75rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 1rem;
+transition: border-color 0.3s;
+font-family: inherit;
+resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: #00a8e1;
+box-shadow: 0 0 5px rgba(0, 168, 225, 0.3);
+}
+
+.form-group input:invalid:not(:placeholder-shown) {
+border-color: #dc3545;
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+border-color: #28a745;
+}
+
+.form-help {
+display: block;
+font-size: 0.875rem;
+color: #666;
+margin-top: 0.25rem;
+font-style: italic;
+}
+
+.form-group button,
+.form-group .btn {
+padding: 0.75rem 1.5rem;
+border: none;
+border-radius: 4px;
+font-size: 1rem;
+cursor: pointer;
+text-decoration: none;
+display: inline-block;
+margin-right: 1rem;
+transition: all 0.3s;
+}
+
+.btn-primary {
+background-color: #00a8e1;
+color: white;
+}
+
+.btn-primary:hover {
+background-color: #0088b8;
+}
+
+.btn-secondary {
+background-color: #6c757d;
+color: white;
+}
+
+.btn-secondary:hover {
+background-color: #5a6268;
+}
+
+.error-list {
+list-style: none;
+padding: 0;
+margin: 1rem 0;
+}
+
+.error-list li {
+padding: 0.75rem;
+margin-bottom: 0.5rem;
+background-color: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+border-radius: 4px;
+}
+
+/* Account/Auth Form Styles */
+.form-section {
+max-width: 500px;
+margin: 2rem auto;
+padding: 2rem;
+}
+
+.auth-form {
+background-color: #f9f9f9;
+padding: 2rem;
+border-radius: 8px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+font-size: 1rem;
+color: #dc3545;
+text-align: center;
+margin-bottom: 1.5rem;
+font-weight: bold;
+border: none;
+padding: 0;
+}
+
+.auth-button {
+width: 100%;
+padding: 0.75rem;
+background-color: #00a8e1;
+color: white;
+border: none;
+border-radius: 4px;
+font-size: 1rem;
+font-weight: bold;
+cursor: pointer;
+transition: background-color 0.3s;
+margin-top: 1rem;
+}
+
+.auth-button:hover {
+background-color: #0088b8;
+}
+
+.auth-link {
+text-align: center;
+margin-top: 1rem;
+color: #666;
+}
+
+.auth-link a {
+color: #00a8e1;
+text-decoration: none;
+font-weight: bold;
+}
+
+.auth-link a:hover {
+text-decoration: underline;
+}
+
+.show-password-btn {
+background-color: #6c757d;
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.9rem;
+transition: background-color 0.3s;
+}
+
+.show-password-btn:hover {
+background-color: #5a6268;
+}
+
+/* Account Management Styles */
+.account-management {
+max-width: 800px;
+margin: 2rem auto;
+padding: 2rem;
+}
+
+.account-info {
+background-color: #f9f9f9;
+padding: 1.5rem;
+border-radius: 8px;
+margin-bottom: 2rem;
+}
+
+.account-info h2 {
+color: #00a8e1;
+margin-bottom: 1rem;
+border: none;
+padding: 0;
+}
+
+.account-info p {
+margin: 0.5rem 0;
+font-size: 1.1rem;
+}
+
+.account-actions {
+background-color: #f9f9f9;
+padding: 1.5rem;
+border-radius: 8px;
+}
+
+.account-actions h3 {
+margin-bottom: 1rem;
+color: #333;
+}
+
+.account-actions ul {
+list-style: none;
+padding: 0;
+}
+
+.account-actions li {
+margin-bottom: 1rem;
+}
+
+.account-actions .btn {
+display: inline-block;
+text-decoration: none;
+padding: 0.75rem 1.5rem;
+}

@@ -490,6 +490,8 @@ form {
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  font-family: inherit;
+  resize: vertical;
 }
 
 .form-group input:focus,
@@ -560,6 +562,131 @@ form {
   color: #721c24;
   border: 1px solid #f5c6cb;
   border-radius: 4px;
+}
+
+/* Account/Auth Form Styles */
+.form-section {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.auth-form {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+  font-size: 1rem;
+  color: #dc3545;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #00a8e1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.auth-button:hover {
+  background-color: #0088b8;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.auth-link a {
+  color: #00a8e1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+.show-password-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.show-password-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Account Management Styles */
+.account-management {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.account-info {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.account-info h2 {
+  color: #00a8e1;
+  margin-bottom: 1rem;
+  border: none;
+  padding: 0;
+}
+
+.account-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.account-actions {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.account-actions h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.account-actions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.account-actions li {
+  margin-bottom: 1rem;
+}
+
+.account-actions .btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
 }
 
 /* Body Background */

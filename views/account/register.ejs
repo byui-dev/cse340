@@ -1,25 +1,115 @@
-<section class=" form-section">
-  <h1><%= title  %></h1>
-    < action="/account/register" method="POST" class="auth-form">
-        <h2>ALL FIELDS ARE REQUIRED.</h2>
-        <div class="form-group">
-        <label for="firstname">First Name:</Label>
-        <input type="text" id="firstname" name="account_firstname" required>
-        </div>
-        <div class="form-group">
-        <label for="lastname">Last Name:</Label>
-        <input type="text" id="lastname" name="account_lastname" required>
-        </div>
-        <div class="form-group">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="account_email" required>
-        </div>
-        <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-        </div><i>Passwords must be at least 12 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.</i></div>
-        <div id="pswdBtn">Show Password</div>
-        <button type="submit" class="auth-button">Register</button>
-    </form>
-</section>
-  
+const { body, validationResult } = require("express-validator")
+const utilities = require(".")
+const accountModel = require("../models/account-model")
+
+const validate = {}
+
+/* **********************************
+* Registration Data Validation Rules
+* ********************************* */
+validate.registrationRules = () => {
+return [
+// firstname is required and must be string
+body("account_firstname")
+.trim()
+.isLength({ min: 1 })
+.withMessage("Please provide a first name."),
+
+// lastname is required and must be string
+body("account_lastname")
+.trim()
+.isLength({ min: 2 })
+.withMessage("Please provide a last name."),
+
+// valid email is required and cannot already exist in the database
+body("account_email")
+.trim()
+.isEmail()
+.normalizeEmail()
+.withMessage("A valid email is required.")
+.custom(async (account_email) => {
+const emailExists = await accountModel.checkExistingEmail(account_email)
+if (emailExists){
+throw new Error("Email exists. Please log in or use different email")
+}
+}),
+
+// password is required and must be strong password
+body("account_password")
+.trim()
+.isStrongPassword({
+minLength: 12,
+minLowercase: 1,
+minUppercase: 1,
+minNumbers: 1,
+minSymbols: 1,
+})
+.withMessage("Password does not meet requirements."),
+]
+}
+
+/* ******************************
+* Check data and return errors or continue to registration
+* ***************************** */
+validate.checkRegData = async (req, res, next) => {
+const { account_firstname, account_lastname, account_email } = req.body
+let errors = []
+errors = validationResult(req)
+if (!errors.isEmpty()) {
+let nav = await utilities.getNav()
+res.render("account/register", {
+errors,
+title: "Registration",
+nav,
+account_firstname,
+account_lastname,
+account_email,
+messages: req.flash()
+})
+return
+}
+next()
+}
+
+/* **********************************
+* Login Data Validation Rules
+* ********************************* */
+validate.loginRules = () => {
+return [
+// valid email is required
+body("account_email")
+.trim()
+.isEmail()
+.normalizeEmail()
+.withMessage("A valid email is required."),
+
+// password is required
+body("account_password")
+.trim()
+.notEmpty()
+.withMessage("Password is required."),
+]
+}
+
+/* ******************************
+* Check data and return errors or continue to login
+* ***************************** */
+validate.checkLoginData = async (req, res, next) => {
+const { account_email } = req.body
+let errors = []
+errors = validationResult(req)
+if (!errors.isEmpty()) {
+let nav = await utilities.getNav()
+res.render("account/login", {
+errors,
+title: "Login",
+nav,
+account_email,
+messages: req.flash()
+})
+return
+}
+next()
+}
+
+module.exports = validate

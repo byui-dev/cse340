@@ -1,0 +1,227 @@
+<h1>
+    <%= title %>
+</h1>
+
+<% if (messages.notice) { %>
+    <p class="notice">
+        <%= messages.notice %>
+    </p>
+    <% } %>
+
+        <% if (messages.error) { %>
+            <p class="error">
+                <%= messages.error %>
+            </p>
+            <% } %>
+
+                <% if (errors) { %>
+                    <ul class="error-list">
+                        <% errors.array().forEach(error=> { %>
+                            <li class="error">
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+
+                        <form id="addInventoryForm" action="/inv/add-inventory" method="post">
+                            <div class="form-group">
+                                <label for="classification_id">Classification:</label>
+                                <%- classificationList %>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_make">Make:</label>
+                                <input type="text" id="inv_make" name="inv_make" required minlength="3"
+                                    value="<%= locals.inv_make || '' %>"
+                                    placeholder="Enter vehicle make (min 3 characters)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_model">Model:</label>
+                                <input type="text" id="inv_model" name="inv_model" required minlength="3"
+                                    value="<%= locals.inv_model || '' %>"
+                                    placeholder="Enter vehicle model (min 3 characters)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_year">Year:</label>
+                                <input type="text" id="inv_year" name="inv_year" required pattern="^\d{4}$"
+                                    maxlength="4" value="<%= locals.inv_year || '' %>"
+                                    placeholder="Enter 4-digit year (e.g., 2024)" title="Year must be exactly 4 digits">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_description">Description:</label>
+                                <textarea id="inv_description" name="inv_description" required rows="4"
+                                    placeholder="Enter detailed vehicle description"><%= locals.inv_description || '' %></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_image">Image Path:</label>
+                                <input type="text" id="inv_image" name="inv_image" required
+                                    value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>"
+                                    placeholder="/images/vehicles/no-image.png">
+                                <span class="form-help">Path to vehicle image (default:
+                                    /images/vehicles/no-image.png)</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_thumbnail">Thumbnail Path:</label>
+                                <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
+                                    value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>"
+                                    placeholder="/images/vehicles/no-image-tn.png">
+                                <span class="form-help">Path to vehicle thumbnail (default:
+                                    /images/vehicles/no-image-tn.png)</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_price">Price:</label>
+                                <input type="number" id="inv_price" name="inv_price" required min="0" step="1"
+                                    value="<%= locals.inv_price || '' %>" placeholder="Enter price (whole number)">
+                                <span class="form-help">Enter price without decimal places</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_miles">Miles:</label>
+                                <input type="number" id="inv_miles" name="inv_miles" required min="0" step="1"
+                                    value="<%= locals.inv_miles || '' %>" placeholder="Enter mileage">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inv_color">Color:</label>
+                                <input type="text" id="inv_color" name="inv_color" required
+                                    value="<%= locals.inv_color || '' %>" placeholder="Enter vehicle color">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Add Vehicle</button>
+                                <a href="/inv" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+
+                        <script>
+                            // Client-side validation
+                            document.getElementById('addInventoryForm').addEventListener('submit', function (e) {
+                                let isValid = true;
+                                let errors = [];
+
+                                // Classification
+                                const classification = document.getElementById('classificationList').value;
+                                if (!classification) {
+                                    errors.push('Please select a classification');
+                                    isValid = false;
+                                }
+
+                                // Make
+                                const make = document.getElementById('inv_make').value.trim();
+                                if (make.length < 3) {
+                                    errors.push('Make must be at least 3 characters');
+                                    isValid = false;
+                                }
+
+                                // Model
+                                const model = document.getElementById('inv_model').value.trim();
+                                if (model.length < 3) {
+                                    errors.push('Model must be at least 3 characters');
+                                    isValid = false;
+                                }
+
+                                // Year
+                                const year = document.getElementById('inv_year').value.trim();
+                                if (!/^\d{4}$/.test(year)) {
+                                    errors.push('Year must be exactly 4 digits');
+                                    isValid = false;
+                                }
+
+                                // Description
+                                const description = document.getElementById('inv_description').value.trim();
+                                if (!description) {
+                                    errors.push('Description is required');
+                                    isValid = false;
+                                }
+
+                                // Image Path
+                                const image = document.getElementById('inv_image').value.trim();
+                                if (!image) {
+                                    errors.push('Image path is required');
+                                    isValid = false;
+                                }
+
+                                // Thumbnail Path
+                                const thumbnail = document.getElementById('inv_thumbnail').value.trim();
+                                if (!thumbnail) {
+                                    errors.push('Thumbnail path is required');
+                                    isValid = false;
+                                }
+
+                                // Price
+                                const price = document.getElementById('inv_price').value;
+                                if (!price || price < 0) {
+                                    errors.push('Price must be a positive number');
+                                    isValid = false;
+                                }
+
+                                // Miles
+                                const miles = document.getElementById('inv_miles').value;
+                                if (!miles || miles < 0) {
+                                    errors.push('Miles must be a positive number');
+                                    isValid = false;
+                                }
+
+                                // Color
+                                const color = document.getElementById('inv_color').value.trim();
+                                if (!color) {
+                                    errors.push('Color is required');
+                                    isValid = false;
+                                }
+
+                                if (!isValid) {
+                                    e.preventDefault();
+                                    alert('Please fix the following errors:\n\n' + errors.join('\n'));
+                                    return false;
+                                }
+
+                                return true;
+                            });
+
+                            // Real-time validation for year field
+                            document.getElementById('inv_year').addEventListener('input', function (e) {
+                                const value = e.target.value;
+                                if (value && !/^\d{0,4}$/.test(value)) {
+                                    e.target.value = value.slice(0, -1);
+                                }
+
+                                if (value.length === 4 && /^\d{4}$/.test(value)) {
+                                    e.target.style.borderColor = '#28a745';
+                                } else if (value.length > 0) {
+                                    e.target.style.borderColor = '#dc3545';
+                                } else {
+                                    e.target.style.borderColor = '#ddd';
+                                }
+                            });
+
+                            // Real-time validation for make and model
+                            ['inv_make', 'inv_model'].forEach(fieldId => {
+                                document.getElementById(fieldId).addEventListener('input', function (e) {
+                                    if (e.target.value.length >= 3) {
+                                        e.target.style.borderColor = '#28a745';
+                                    } else if (e.target.value.length > 0) {
+                                        e.target.style.borderColor = '#dc3545';
+                                    } else {
+                                        e.target.style.borderColor = '#ddd';
+                                    }
+                                });
+                            });
+
+                            // Real-time validation for price and miles
+                            ['inv_price', 'inv_miles'].forEach(fieldId => {
+                                document.getElementById(fieldId).addEventListener('input', function (e) {
+                                    if (e.target.value >= 0) {
+                                        e.target.style.borderColor = '#28a745';
+                                    } else {
+                                        e.target.style.borderColor = '#dc3545';
+                                    }
+                                });
+                            });
+                        </script>

@@ -1,29 +1,36 @@
-// accountRoute.js
+// Needed Resources 
+const express = require("express")
+const router = new express.Router() 
+const accountController = require("../controllers/accountController")
+const utilities = require("../utilities/")
+const accountValidate = require('../utilities/account-validation')
 
-const express = require("express");
-const router = express.Router();
-const accountController = require("../controllers/accountController");
-const utilities = require("../utilities");
+// Route to build login view
+router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
-// Redirect root /account to login
-router.get("/", (req, res) => {
-  res.redirect("/account/login");
-});
+// Route to build registration view
+router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
-// Serve account home page
-router.get("/home", utilities.handleErrors(accountController.buildAccountHome));
+// Process the registration data
+router.post(
+  "/register",
+  accountValidate.registrationRules(),
+  accountValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+)
 
-// Serve registration view
-router.get("/register", (req, res) => {
-  res.render("account/register", {
-    title: "Register Account"
-  });
-});
+// Process the login attempt
+router.post(
+  "/login",
+  accountValidate.loginRules(),
+  accountValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
+)
 
-// Serve login view
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+// Route to build account management view (requires login)
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement))
 
-// Handle registration form submission
-router.post("/register", utilities.handleErrors(accountController.registerAccount));
+// Process logout
+router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 
-module.exports = router;
+module.exports = router
