@@ -1,73 +1,96 @@
-const invModel = require("../models/inventory-model");
-const utilities = require("../utilities");
+const invModel = require("../models/inventory-model")
+const utilities = require("../utilities/")
 
-const invControl = {};
+const invCont = {}
 
-/* ************************
- * Builds inventory view by classification ID
- ************************** */
-invControl.buildByClassificationId = async function (req, res, next) {
-  const classificationId = parseInt(req.params.classificationId);
+/* ***************************
+ *  Build inventory management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Inventory Management",
+    nav,
+    messages: req.flash(),
+    errors: null,
+  })
+}
 
-  if (!Number.isInteger(classificationId)) {
-    return res.status(400).send("Invalid classification ID.");
-  }  
-  
-  try {
-    const inventory = await invModel.getInventoryByClassificationId(classificationId);
-    const grid = utilities.buildClassificationGrid(inventory);
-    const nav = await utilities.getNav();
+/* ***************************
+ *  Build add classification view
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+    title: "Add New Classification",
+    nav,
+    messages: req.flash(),
+    errors: null,
+  })
+}
 
-    const title = inventory.length > 0
-      ? `${inventory[0].classification_name} Vehicles`
-      : "No Vehicles Found";
+/* ***************************
+ *  Process add classification
+ * ************************** */
+invCont.addClassification = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { classification_name } = req.body
 
-    const messages = inventory.length === 0 ? ["No vehicles found for this classification."] : [];
-    
-    res.render("inventory/classification", {
-      title,
+  const addResult = await invModel.addClassification(classification_name)
+
+  if (addResult) {
+    // Regenerate navigation with new classification
+    nav = await utilities.getNav()
+    req.flash("notice", `Congratulations, you successfully added ${classification_name} classification.`)
+    res.status(201).render("./inventory/management", {
+      title: "Inventory Management",
       nav,
-      grid,
-      messages,
-      errors: null
-    });
-  } catch (error) {
-    console.error(`[invControl] buildByClassificationId failed for ID=${classificationId}:`, error.message);
-    next(error);
-  }
-};
-
-
-/**********************************************
- * Builds inventory detail view by Item ID
- **********************************************/
-invControl.buildByItemId = async function (req, res, next) {
-  const itemId = parseInt(req.params.itemId, 10);
-  
-  if (!Number.isInteger(itemId)) {
-    return res.status(400).send("Invalid Item ID.");
-  }
-
-  try {
-    const item = await invModel.getInventoryById(itemId); 
-   
-    if (!item) {
-      return res.status(404).send("Item Not Found.");
-    }
-
-    const nav = await utilities.getNav();
-    const vehicleDetail = utilities.buildVehicleDetail(item);
-
-    res.render("inventory/detail", {
-      title: `${item.inv_year} ${item.inv_make} ${item.inv_model}`, 
+      messages: req.flash(),
+      errors: null,
+    })
+  } else {
+    req.flash("error", "Sorry, adding the classification failed.")
+    res.status(501).render("./inventory/add-classification", {
+      title: "Add New Classification",
       nav,
-      vehicleDetail,
-      errors: null
-    });
-  } catch (error) {
-    console.error(`[invControl] buildByItemId failed for ID=${itemId}:`, error.message);
-    next(error);
+      messages: req.flash(),
+      errors: null,
+    })
   }
-};
+}
 
-module.exports = invControl;
+/* ***************************
+ *  Build inventory by classification view
+ * ************************** */
+invCont.buildByClassificationId = async function (req, res, next) {
+  const classification_id = req.params.classificationId
+  const data = await invModel.getInventoryByClassificationId(classification_id)
+  const grid = await utilities.buildClassificationGrid(data)
+  let nav = await utilities.getNav()
+  const className = data[0]?.classification_name || "Vehicle"
+  res.render("./inventory/classification", {
+    title: className + " vehicles",
+    nav,
+    grid,
+    messages: req.flash()
+  })
+}
+
+/* ***************************
+ *  Build vehicle detail view
+ * ************************** */
+invCont.buildByInventoryId = async function (req, res, next) {
+  const inventory_id = req.params.inventoryId
+  const data = await invModel.getVehicleById(inventory_id)
+  const detail = await utilities.buildVehicleDetail(data)
+  let nav = await utilities.getNav()
+  const vehicleName = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
+  res.render("./inventory/detail", {
+    title: vehicleName,
+    nav,
+    detail,
+    messages: req.flash()
+  })
+}
+
+module.exports = invCont

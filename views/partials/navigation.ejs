@@ -1,11 +1,3 @@
-<nav role="navigation" aria-label="Main Navigation">
-  <ul class="nav-center">
-    <% navItems.forEach(item=> { %>
-      <li class="<%= currentPath === item.href ? 'active' : '' %>">
-        <a href="<%= item.href %>">
-          <%= item.label %>
-        </a>
-      </li>
-      <% }) %>
-  </ul>
+<nav class="main-navigation">
+  <%- nav %>
 </nav>

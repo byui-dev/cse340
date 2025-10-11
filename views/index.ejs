@@ -1,60 +1,61 @@
-<div class="main-wrapper">
-  <h1>Welcome to CSE Motors!</h1>
+<h1>Welcome to CSE Motors!</h1>
 
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="text-overlay">
-      <p>DMC Delorean</p>
-      <ul class="features-list">
-        <% features.forEach(feature=> { %>
-          <li>
-            <%= feature %>
-          </li>
-          <% }); %>
+<section class="hero">
+  <div class="hero-content">
+    <div class="delorean-info">
+      <h2 class="delorean-title">DMC Delorean</h2>
+      <ul class="delorean-features">
+        <li>3 Cup holders</li>
+        <li>Superman doors</li>
+        <li>Fuzzy dice!</li>
       </ul>
+      <a href="/images/site/own-today.png" btn btn-primary">Own Today</a>
+    </div>
+    <div class="delorean-image">
+      <img src="/images/vehicles/delorean.jpg" alt="DMC Delorean">
+    </div>
+  </div>
+</section>
 
-      <a href="#" class="own-today-btn">
-        <img src="/images/site/own_today.png" alt="Own the Delorean Today" class="own-today" />
+<section class="content-grid">
+  <div class="upgrades-section">
+    <h2>Delorean Upgrades</h2>
+    <div class="upgrade-grid">
+      <a href="/inv/upgrade/flux-capacitor" class="upgrade-item">
+        <div class="upgrade-icon">
+          <img src="/images/upgrades/flux-cap.png" alt="Flux Capacitor">
+        </div>
+        <span>Flux Capacitor</span>
+      </a>
+      <a href="/inv/upgrade/flame-decals" class="upgrade-item">
+        <div class="upgrade-icon">
+          <img src="/images/upgrades/flame.jpg" alt="Flame Decals">
+        </div>
+        <span>Flame Decals</span>
+      </a>
+      <a href="/inv/upgrade/bumper-stickers" class="upgrade-item">
+        <div class="upgrade-icon">
+          <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
+        </div>
+        <span>Bumper Stickers</span>
+      </a>
+      <a href="/inv/upgrade/hub-caps" class="upgrade-item">
+        <div class="upgrade-icon">
+          <img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
+        </div>
+        <span>Hub Caps</span>
       </a>
     </div>
-
-    <img class="main-image" src="/images/vehicles/delorean.jpg" alt="DMC Delorean" />
   </div>
 
-  <!-- Responsive Section -->
-  <section class="responsive-section">
-    <div class="heading-container">
-      <!-- Upgrades Grid -->
-      <div class="heading-left">
-        <h2>Delorean Upgrades</h2>
-        <div class="image-grid responsive-grid">
-          <% upgrades.forEach(upgrade=> { %>
-            <div class="image-item">
-              <img src="/images/upgrades/<%= upgrade.src %>" alt="<%= upgrade.alt %>" />
-              <p class="caption">
-                <%= upgrade.caption %>
-              </p>
-            </div>
-            <% }); %>
-        </div>
-      </div>
-
-      <!-- Reviews List -->
-      <div class="heading-right">
-        <h2>DMC Delorean Reviews</h2>
-        <ul class="special-features">
-          <% reviews.forEach(review=> {
-            const rating = review.match(/\((\d(?:\.\d)?)\/5\)/)?.[1];
-            %>
-            <li>
-              <%= review %>
-                <% if (rating) { %>
-                  <span class="stars">⭐️ <%= rating %>/5</span>
-                  <% } %>
-            </li>
-            <% }); %>
-        </ul>
-      </div>
-    </div>
-  </section>
-</div>
+  <div class="reviews-section">
+    <h2>DMC Delorean Reviews</h2>
+    <ul class="reviews-list">
+      <li>"So fast it's almost like traveling in time." (4/5)</li>
+      <li>"Coolest ride on the road." (4/5)</li>
+      <li>"I'm feeling McFly!" (5/5)</li>
+      <li>"The most futuristic ride of our day." (4.5/5)</li>
+      <li>"80's livin and I love it!" (5/5)</li>
+    </ul>
+  </div>
+</section>

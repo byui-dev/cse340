@@ -1,17 +1,15 @@
-<nav class="header-wrapper">
-  <div class="nav-header">
-    <a href="/" class="siteName">CSE Motors</a>
+<header class="site-header">
+  <div class="header-container">
+    <a href="/">CSE Motors</a>
   </div>
 
-  <div class="account-controls">
-    <% if (typeof loggedIn==='undefined' ) { %>
-      <span class="account-link">Loading...</span>
-      <% } else if (loggedIn) { %>
-        <a title="View your account" href="/account/" class="account-link">My Account</a>
-        <% } else { %>
-          <a title="Click to log in" href="/account/login" class="account-link">Login</a>
-          <% } %>
+  <div class="account-link">
+    <% if (typeof loggedin !== 'undefined' && loggedin) { %>
+       <a href="/account">Welcome <% accountData.account_firstname %></a>
+       <a href="/account/logout">Logout</a>
+    <% else { %>
+      <a href="/account/login">My Account</a>
+    <% } %>     
   </div>
-
-  <%- include('partials/nav') %>
-</nav>
+ </div> 
+</header>

@@ -1,21 +1,13 @@
-<% if (title) { %>
-    <h1><%= title %></h1>
+<h1><%= title %></h1>
+
+<% if (messages.notice) { %>
+  <p class="notice"><%= messages.notice %></p>
 <% } %>
 
-<% if (messages && messages.length > 0) { %>
- <ul class="notice">
-   <% messages.forEach(function(msg) { %>
-    <li><%= msg %></li>
-   <% }) %>
-  </ul>
+<% if (messages.error) { %>
+  <p class="error"><%= messages.error %></p>
 <% } %>
 
-<% if (errors) { %>
-  <ul class="notice">
-    <% errors.forEach(function(error) { %>
-     <li><%= error.msg %></li>
-    <% }) %>
-    </ul>   
-<% } %>
-
-<%- grid %>
+<div class="inventory-container">
+  <%- grid  %>
+</div>

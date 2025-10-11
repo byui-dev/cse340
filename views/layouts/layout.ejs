@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title || 'CSE Motors' %></title>
-  <link rel="stylesheet" href="/css/components/header.css">
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
+<%- include('..views/partials/head')  %>
 
 <body>
-    <%- include('../partials/header') %>
-    <%- body %>
-  
+  <div class="wrapper">
+    <%- include('../views/partials/header') %>
 
-    <%- include('../partials/footer') %>
-  </div>
+    <%- include('../views/partials/navigation') %>
+
+    <main>
+      <%- body %>
+    </main>
+
+   <%- include('..views/partials/footer')  %>
+  </div>  
 </body>
 
 </html>
