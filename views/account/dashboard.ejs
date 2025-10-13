@@ -1,0 +1,21 @@
+<section class="form-section">
+  <h1><%= title  %></h1>  
+
+  <% if (messages.notice) { %>
+     <p class="notice"><%= messages.notice %></p>
+  <% } %>
+  
+  <% (messages.error) { %>
+    <p class="error"><%= messages.error %></p>
+  <% } %>    
+
+  <% if (errors) { %>
+    <ul class="error-list">
+      <% errors.array().forEach(error => { %>  
+        <li class="error"><%= error.msg %></li>
+      <% }) %> 
+    </ul>
+  <% } %>  
+
+  <p class="success-message">You're logged in.</p>
+</section>
