@@ -1,6 +1,7 @@
 const { body, validationResult } = require("express-validator")
-const utilities = require(".")
+const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
+const bcrypt = require("bcrypt") 
 
 // import the jsonwebtoken history
 const jwt = require("jsonwebtoken")

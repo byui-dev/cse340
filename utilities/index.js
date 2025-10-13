@@ -47,8 +47,7 @@ Util.buildClassificationGrid = async function(data){
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
-      grid += '<span> 
-      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += `<span>${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span>`
       grid += '</div>'
       grid += '</li>'
     })
@@ -69,7 +68,7 @@ Util.buildVehicleDetail = async function(vehicle){
   detail += '</div>'
   detail += '<div class="vehicle-info">'
   detail += '<h2>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h2>'
-  detail += '<p class="vehicle-price">Price:  + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>'
+  detail += `<p class="vehicle-price">Price: ${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`
   detail += '<p class="vehicle-description">' + vehicle.inv_description + '</p>'
   detail += '<ul class="vehicle-specs">'
   detail += '<li><strong>Color:</strong> ' + vehicle.inv_color + '</li>'
@@ -131,5 +130,17 @@ Util.checkJWTToken = (req, res, next) => {
   next()
  }
 }
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 module.exports = Util

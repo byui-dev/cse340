@@ -1,3 +1,5 @@
+
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -9,7 +11,10 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
-  background-color: #f4f4f4;
+  background: url('../images/site/checkerboard.jpg') center center / cover no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .wrapper {
@@ -28,10 +33,10 @@ body {
   flex-direction: column;
 }
 
-/* Header Styles */
+/* Header Styles - REFACTORED */
 .site-header {
   background-color: white;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   border-bottom: 2px solid #333;
 }
 
@@ -39,10 +44,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 50px;
 }
 
 .logo a {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
   text-decoration: none;
@@ -51,7 +57,7 @@ body {
 .account-link a {
   color: #333;
   text-decoration: none;
-  margin-left: 1rem;
+  font-size: 0.9rem;
 }
 
 .account-link a:hover {
@@ -101,25 +107,30 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
-/* Hero Section */
+/* Hero Section - REFACTORED */
 .hero {
   margin-bottom: 2rem;
 }
 
 .hero-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 40% 60%;
   gap: 2rem;
   align-items: center;
-  background-color: #e8f4f8;
+  background-color: white;
   padding: 2rem;
-  border-radius: 8px;
+}
+
+.delorean-info {
+  display: flex;
+  flex-direction: column;
 }
 
 .delorean-title {
-  color: #00a8e1;
+  color: #00bcd4;
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .delorean-features {
@@ -128,31 +139,60 @@ h1 {
 }
 
 .delorean-features li {
-  color: #00a8e1;
+  color: #00bcd4;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
 
+/* Own Today Image Button - NEW */
+.delorean-info a {
+  display: inline-block;
+  transition: transform 0.3s, opacity 0.3s;
+  max-width: 150px;
+}
+
+.delorean-info a img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.delorean-info a:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Button Styles - For other buttons on the site */
 .btn {
   display: inline-block;
   padding: 0.8rem 2rem;
   text-decoration: none;
-  border-radius: 4px;
   transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .btn-primary {
-  background-color: #00a8e1;
+  background-color: #00bcd4;
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #0088b8;
+  background-color: #00a0b8;
+}
+
+.delorean-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .delorean-image img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* Content Grid */
@@ -160,6 +200,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  margin-top: 2rem;
 }
 
 h2 {
@@ -169,51 +210,58 @@ h2 {
   border-bottom: 2px solid #333;
 }
 
-/* Upgrades Section */
+/* Upgrades Section - REFACTORED */
 .upgrade-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .upgrade-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  background-color: #00a8e1;
-  border-radius: 8px;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background-color: #00bcd4;
   text-decoration: none;
   color: white;
   transition: background-color 0.3s;
+  min-height: 120px;
 }
 
 .upgrade-item:hover {
-  background-color: #0088b8;
+  background-color: #00a0b8;
 }
 
 .upgrade-item img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0.75rem;
+  background-color: white;
   padding: 0.5rem;
   border-radius: 4px;
+  object-fit: contain;
 }
 
 .upgrade-item span {
   font-weight: bold;
   text-align: center;
+  font-size: 0.95rem;
 }
 
 /* Reviews Section */
 .reviews-list {
   list-style: none;
+  padding: 0;
+  margin-top: 1rem;
 }
 
 .reviews-list li {
   padding: 0.8rem 0;
   border-bottom: 1px solid #ddd;
+  line-height: 1.6;
 }
 
 .reviews-list li:last-child {
@@ -222,11 +270,13 @@ h2 {
 
 /* Footer Styles */
 .site-footer {
-  background-color: #333;
-  color: white;
+  background-color: white;
+  color: #333;
   text-align: center;
   padding: 1rem;
   margin-top: auto;
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
 }
 
 /* Responsive Design */
@@ -317,14 +367,14 @@ h2 {
 }
 
 .namePrice h2 a:hover {
-  color: #00a8e1;
+  color: #00bcd4;
 }
 
 .namePrice span {
   display: block;
   font-size: 1.1rem;
   font-weight: bold;
-  color: #00a8e1;
+  color: #00bcd4;
   margin-top: 0.5rem;
 }
 
@@ -356,7 +406,7 @@ h2 {
 .vehicle-price {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00a8e1;
+  color: #00bcd4;
   margin-bottom: 1rem;
 }
 
@@ -434,7 +484,7 @@ h2 {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background-color: #00a8e1;
+  background-color: #00bcd4;
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -444,7 +494,7 @@ h2 {
 }
 
 .management-btn:hover {
-  background-color: #0088b8;
+  background-color: #00a0b8;
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -498,8 +548,8 @@ form {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #00a8e1;
-  box-shadow: 0 0 5px rgba(0, 168, 225, 0.3);
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
 }
 
 .form-group input:invalid:not(:placeholder-shown) {
@@ -529,15 +579,6 @@ form {
   display: inline-block;
   margin-right: 1rem;
   transition: all 0.3s;
-}
-
-.btn-primary {
-  background-color: #00a8e1;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #0088b8;
 }
 
 .btn-secondary {
@@ -591,7 +632,7 @@ form {
 .auth-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #00a8e1;
+  background-color: #00bcd4;
   color: white;
   border: none;
   border-radius: 4px;
@@ -603,7 +644,7 @@ form {
 }
 
 .auth-button:hover {
-  background-color: #0088b8;
+  background-color: #00a0b8;
 }
 
 .auth-link {
@@ -613,7 +654,7 @@ form {
 }
 
 .auth-link a {
-  color: #00a8e1;
+  color: #00bcd4;
   text-decoration: none;
   font-weight: bold;
 }
@@ -652,7 +693,7 @@ form {
 }
 
 .account-info h2 {
-  color: #00a8e1;
+  color: #00bcd4;
   margin-bottom: 1rem;
   border: none;
   padding: 0;
@@ -688,12 +729,3 @@ form {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
 }
-
-/* Body Background */
-body {
-  background: url('../images/site/checkerboard.jpg') center center / cover no-repeat;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-

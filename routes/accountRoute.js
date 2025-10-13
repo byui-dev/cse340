@@ -28,7 +28,7 @@ router.post(
 )
 
 // Route to build account management view (requires login)
-router.get("/", utilities.handleErrors(accountController.buildAccountManagement))
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 
 // Process logout
 router.get("/logout", utilities.handleErrors(accountController.accountLogout))
