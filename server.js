@@ -42,6 +42,8 @@ app.use(session({
   name: 'sessionId',
 }))
 
+app.use(utilities.checkJWTToken)
+
 // Express Messages Middleware
 app.use(flash())
 app.use(function(req, res, next){
